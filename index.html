@@ -1,0 +1,2654 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1E3A5F">
+  <meta name="color-scheme" content="light">
+  <title>四六级冲刺工具｜30 天只练不会的</title>
+  <style>
+    :root {
+      --navy: #1E3A5F;
+      --navy-deep: #132A47;
+      --blue: #2563EB;
+      --blue-soft: #EFF6FF;
+      --ink: #1F2937;
+      --muted: #6B7280;
+      --line: #DDE3EA;
+      --bg: #F5F7FA;
+      --surface: #FFFFFF;
+      --success: #16A34A;
+      --success-soft: #ECFDF3;
+      --warn: #D97706;
+      --warn-soft: #FFF7ED;
+      --danger: #DC2626;
+      --danger-soft: #FEF2F2;
+      --radius: 14px;
+      --shadow: 0 8px 28px rgba(30, 58, 95, 0.08);
+      --display: "Songti SC", "STSong", "Noto Serif CJK SC", SimSun, serif;
+      --body: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+    button { color: inherit; }
+    a { color: inherit; }
+    svg { display: block; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, .display { font-family: var(--display); font-weight: 700; letter-spacing: -0.035em; text-wrap: balance; }
+    h2 { margin-bottom: 8px; font-size: clamp(27px, 4vw, 38px); line-height: 1.2; }
+    h3 { margin-bottom: 8px; font-size: 20px; line-height: 1.35; }
+    ul { margin: 0; padding: 0; list-style: none; }
+    :focus-visible {
+      outline: 3px solid rgba(37, 99, 235, 0.34);
+      outline-offset: 3px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: white;
+      color: var(--navy);
+      box-shadow: var(--shadow);
+      transform: translateY(-150%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .wrap { width: min(100% - 32px, 760px); margin-inline: auto; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #F8FAFC;
+      background: var(--navy);
+      border-bottom: 6px solid #E1B866;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -92px;
+      bottom: -120px;
+      width: 290px;
+      height: 290px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      box-shadow: 0 0 0 28px rgba(255,255,255,0.035), 0 0 0 58px rgba(255,255,255,0.025);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(100% - 32px, 760px);
+      margin-inline: auto;
+      padding: 22px 0 26px;
+    }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .brand-mark {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.34);
+      border-radius: 7px;
+      background: rgba(255,255,255,0.06);
+    }
+    .exam-tag {
+      color: #CEDAE8;
+      font: 600 12px/1.3 var(--mono);
+      letter-spacing: 0.09em;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(210px, 0.65fr);
+      gap: 28px;
+      align-items: end;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 13px;
+      color: #D8B76C;
+      font: 700 12px/1.4 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 25px;
+      height: 1px;
+      background: currentColor;
+    }
+    .hero h1 {
+      max-width: 560px;
+      margin-bottom: 16px;
+      font-size: clamp(43px, 8vw, 73px);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
+    }
+    .hero h1 em {
+      color: #E8CB89;
+      font-style: normal;
+    }
+    .hero-lede {
+      max-width: 500px;
+      margin-bottom: 24px;
+      color: #CEDAE8;
+      font-size: 16px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .hero-note {
+      color: #AEBED0;
+      font-size: 12px;
+    }
+    .count-card {
+      padding: 18px 20px 17px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: var(--radius);
+      background: rgba(12, 31, 52, 0.38);
+      backdrop-filter: blur(8px);
+    }
+    .count-label {
+      margin-bottom: 4px;
+      color: #CEDAE8;
+      font-size: 13px;
+    }
+    .count-line {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+    }
+    .count-number {
+      font: 700 clamp(52px, 10vw, 78px)/0.95 var(--mono);
+      letter-spacing: -0.08em;
+    }
+    .count-unit { color: #D8B76C; font-weight: 700; }
+    .count-times {
+      display: grid;
+      gap: 5px;
+      margin-top: 12px;
+      color: #B9C8D8;
+      font: 500 11px/1.55 var(--mono);
+    }
+    .day-map {
+      display: grid;
+      grid-template-columns: repeat(30, minmax(0, 1fr));
+      gap: 4px;
+      margin-top: 30px;
+    }
+    .day-map span {
+      height: 9px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.18);
+    }
+    .day-map span.done { background: #82A7D0; }
+    .day-map span.current {
+      background: #E8CB89;
+      box-shadow: 0 0 0 2px rgba(232,203,137,0.22);
+    }
+    .day-map-caption {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 7px;
+      color: #AEBED0;
+      font: 500 11px/1.4 var(--mono);
+    }
+
+    .section-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+    }
+    .section-nav-inner {
+      display: flex;
+      width: min(100% - 20px, 760px);
+      gap: 2px;
+      margin-inline: auto;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .section-nav-inner::-webkit-scrollbar { display: none; }
+    .section-nav a {
+      flex: 0 0 auto;
+      padding: 15px 11px 13px;
+      border-bottom: 2px solid transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+    .section-nav a:hover { color: var(--navy); }
+    .section-nav a[aria-current="true"] {
+      border-bottom-color: var(--blue);
+      color: var(--navy);
+    }
+
+    main { padding: 26px 0 82px; }
+    .stat-ribbon {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      overflow: hidden;
+      margin-bottom: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .stat {
+      min-width: 0;
+      padding: 14px 12px;
+      border-right: 1px solid var(--line);
+    }
+    .stat:last-child { border-right: 0; }
+    .stat strong {
+      display: block;
+      color: var(--navy);
+      font: 700 18px/1.2 var(--mono);
+    }
+    .stat span { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+    .rule-strip {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 12px;
+      padding: 13px 15px;
+      border: 1px solid #E7D5B2;
+      border-radius: 11px;
+      background: #FFFBF1;
+    }
+    .rule-strip strong { color: #8A5A0A; font-size: 12px; white-space: nowrap; }
+    .rule-strip p { margin: 0; color: #6C5125; font-size: 12px; }
+    .how-to {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: hidden;
+      margin-bottom: 28px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+    .how-to div {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: start;
+      padding: 13px;
+      border-right: 1px solid var(--line);
+      color: #4B5563;
+      font-size: 12px;
+    }
+    .how-to div:last-child { border-right: 0; }
+    .how-to b { color: var(--blue); font: 700 12px/1.5 var(--mono); }
+
+    .section { padding: 36px 0 10px; scroll-margin-top: 70px; }
+    .section + .section { border-top: 1px solid var(--line); }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+    .section-kicker {
+      margin-bottom: 6px;
+      color: var(--blue);
+      font: 700 11px/1.4 var(--mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .section-sub { max-width: 520px; margin: 0; color: var(--muted); font-size: 14px; }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .surface-pad { padding: 22px; }
+
+    .btn {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 17px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: var(--blue);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 140ms ease, background-color 140ms ease;
+    }
+    .btn:hover { background: #1D4ED8; }
+    .btn:active { transform: translateY(1px); }
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.28);
+      background: transparent;
+      color: #fff;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); }
+    .btn-quiet {
+      min-height: 44px;
+      border-color: var(--line);
+      background: #fff;
+      color: var(--navy);
+    }
+    .btn-quiet:hover { background: #F8FAFC; }
+    .btn-small { min-height: 40px; padding: 8px 12px; font-size: 13px; }
+    .btn:disabled { cursor: not-allowed; opacity: 0.5; }
+
+    .diagnosis-shell { overflow: hidden; }
+    .diagnosis-intro {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 23px;
+    }
+    .diagnosis-intro h3 { margin-bottom: 4px; }
+    .diagnosis-intro p { margin: 0; color: var(--muted); font-size: 14px; }
+    .quiz { display: none; padding: 22px; }
+    .quiz.active { display: block; }
+    .diagnosis-intro.hidden { display: none; }
+    .quiz-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 15px;
+    }
+    .quiz-count { color: var(--muted); font: 600 12px/1.3 var(--mono); }
+    .quiz-track { height: 4px; overflow: hidden; border-radius: 99px; background: #E9EEF4; }
+    .quiz-track > span { display: block; width: 25%; height: 100%; background: var(--blue); transition: width 180ms ease; }
+    .quiz-question { margin: 20px 0 14px; font-size: 20px; font-weight: 750; line-height: 1.45; }
+    .option-grid { display: grid; gap: 9px; }
+    .option-btn {
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 15px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+    .option-btn:hover { border-color: #AFC4DF; background: #F8FAFC; }
+    .option-btn.selected { border-color: var(--blue); background: var(--blue-soft); color: var(--navy); }
+    .quiz-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 15px; }
+    .report { display: none; padding: 4px 0; }
+    .report.active { display: block; }
+    .report-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px 22px 16px;
+    }
+    .report-head p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
+    .report-rows { padding: 0 22px; }
+    .report-row {
+      display: grid;
+      grid-template-columns: 58px 48px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 52px;
+      border-top: 1px solid var(--line);
+    }
+    .report-row b { font-size: 14px; }
+    .report-row p { margin: 0; color: var(--muted); font-size: 13px; }
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      min-width: 38px;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 7px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 750;
+    }
+    .badge.weak { background: var(--warn-soft); color: var(--warn); }
+    .badge.average { background: #F3F4F6; color: #4B5563; }
+    .badge.stable { background: var(--success-soft); color: var(--success); }
+    .report-foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 22px 21px;
+    }
+    .focus-line { flex: 1 1 310px; padding: 11px 13px; border-left: 3px solid var(--blue); background: var(--blue-soft); font-size: 14px; }
+    .text-link { border: 0; background: transparent; color: var(--blue); cursor: pointer; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+
+    .score-note {
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      border: 1px solid #CFE0F5;
+      border-radius: 12px;
+      background: var(--blue-soft);
+    }
+    .score-note strong { color: var(--navy); font: 700 20px/1.2 var(--mono); }
+    .score-note p { margin: 0; color: #40536C; font-size: 13px; }
+    .plan-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 18px;
+      border-bottom: 1px solid var(--line);
+      background: #FAFBFC;
+    }
+    .control-group.wide { grid-column: 1 / -1; }
+    .control-label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .segmented {
+      display: grid;
+      gap: 3px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+    }
+    .segmented.two { grid-template-columns: repeat(2, 1fr); }
+    .segmented.three { grid-template-columns: repeat(3, 1fr); }
+    .segment {
+      min-height: 37px;
+      padding: 7px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .segment.active { background: var(--navy); color: #fff; }
+    input[type="date"], .field-input, select {
+      width: 100%;
+      min-height: 44px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      color: var(--ink);
+    }
+    .today-card { padding: 20px; }
+    .today-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 13px;
+    }
+    .today-date { margin: 1px 0 0; color: var(--muted); font: 500 12px/1.4 var(--mono); }
+    .today-title { margin: 0; font-size: 23px; font-weight: 750; }
+    .plan-progress-label { color: var(--muted); font-size: 12px; }
+    .progress-track { height: 7px; overflow: hidden; margin-bottom: 17px; border-radius: 99px; background: #E8EDF3; }
+    .progress-track > span { display: block; width: 0; height: 100%; background: var(--success); transition: width 180ms ease; }
+    .task-list { display: grid; }
+    .task-row {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr) auto;
+      gap: 11px;
+      align-items: start;
+      min-height: 53px;
+      padding: 11px 0;
+      border-top: 1px solid var(--line);
+    }
+    .task-check {
+      width: 24px;
+      height: 24px;
+      margin: 1px 0 0;
+      accent-color: var(--success);
+      cursor: pointer;
+    }
+    .task-text { font-size: 14px; line-height: 1.55; }
+    .task-row.completed .task-text { color: #8A96A4; text-decoration: line-through; }
+    .tag {
+      display: inline-flex;
+      padding: 2px 7px;
+      border-radius: 99px;
+      background: #F1F4F8;
+      color: #627185;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+    .completion {
+      display: none;
+      margin-top: 13px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      background: var(--success-soft);
+      color: #166534;
+      font-size: 13px;
+    }
+    .completion.active { display: block; }
+    .busy-note { margin-top: 11px; color: var(--muted); font-size: 12px; }
+    .break-note {
+      margin-bottom: 13px;
+      padding: 10px 12px;
+      border-left: 3px solid var(--warn);
+      background: var(--warn-soft);
+      color: #7C4A03;
+      font-size: 12px;
+    }
+    .break-note[hidden] { display: none; }
+    .week-preview { padding: 20px; border-top: 1px solid var(--line); }
+    .week-preview h3 { font-size: 16px; }
+    .preview-list { display: grid; }
+    .preview-item {
+      display: grid;
+      grid-template-columns: 70px 92px minmax(0, 1fr);
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+    }
+    .preview-item strong { color: var(--navy); font-family: var(--mono); }
+    .preview-item span { color: var(--muted); }
+    .preview-item p { margin: 0; color: #526071; }
+    .all-days { margin-top: 12px; border-top: 1px solid var(--line); }
+    .all-days summary {
+      min-height: 50px;
+      padding: 15px 2px;
+      color: var(--blue);
+      cursor: pointer;
+      font-weight: 700;
+      list-style-position: inside;
+    }
+    .all-days-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; padding-bottom: 17px; }
+    .day-chip {
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      font-size: 12px;
+    }
+    .day-chip.review { border-color: #BFD6F4; background: var(--blue-soft); }
+    .day-chip.mock { border-color: #E5D0A8; background: #FFFBF0; }
+    .day-chip strong { display: block; margin-bottom: 3px; color: var(--navy); font-family: var(--mono); }
+    .day-chip p { margin: 0; color: var(--muted); }
+    .exam-checklist { margin-top: 12px; border-top: 1px solid var(--line); }
+    .exam-checklist summary {
+      min-height: 50px;
+      padding: 15px 2px;
+      color: var(--blue);
+      cursor: pointer;
+      font-weight: 700;
+      list-style-position: inside;
+    }
+    .exam-checklist-body { display: grid; gap: 12px; padding-bottom: 18px; }
+    .exam-checklist-body section { padding: 13px; border: 1px solid var(--line); border-radius: 9px; background: #FAFBFD; }
+    .exam-checklist-body h4 { margin: 0 0 7px; color: var(--navy); font-size: 13px; }
+    .exam-checklist-body ul { display: grid; gap: 5px; }
+    .exam-checklist-body li { position: relative; padding-left: 13px; color: #536173; font-size: 12px; }
+    .exam-checklist-body li::before { content: "·"; position: absolute; left: 0; color: var(--blue); font-weight: 800; }
+    .exam-ended-message { margin-top: 18px; padding: 22px; color: var(--navy); font-weight: 700; text-align: center; }
+
+    .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .module-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; box-shadow: var(--shadow); }
+    .module-card[open] { border-color: #B8CAE1; }
+    .module-card summary {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      min-height: 138px;
+      padding: 18px;
+      cursor: pointer;
+      list-style: none;
+    }
+    .module-card summary::-webkit-details-marker { display: none; }
+    .module-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      margin-bottom: 12px;
+      border-radius: 9px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font: 700 12px/1 var(--mono);
+    }
+    .module-card h3 { font-size: 18px; }
+    .module-summary { margin: 0; color: var(--muted); font-size: 12px; }
+    .module-status { align-self: start; }
+    .module-body { padding: 0 18px 18px; border-top: 1px solid var(--line); }
+    .module-body ul { display: grid; gap: 9px; margin-top: 14px; }
+    .module-body li { padding-left: 15px; position: relative; color: #4B5563; font-size: 13px; }
+    .module-body li::before { content: ""; position: absolute; left: 0; top: 0.72em; width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+
+    .template-picker { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+    .template-card {
+      min-height: 88px;
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      cursor: pointer;
+      text-align: left;
+    }
+    .template-card b { display: block; margin-bottom: 4px; font-size: 13px; }
+    .template-card span { color: #566273; font-size: 11px; line-height: 1.4; }
+    .template-card.active { border-color: var(--blue); background: var(--blue-soft); box-shadow: inset 0 0 0 1px var(--blue); }
+    .builder-grid { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 14px; align-items: start; }
+    .builder-main, .builder-side { padding: 18px; }
+    .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+    .field-group.wide { grid-column: 1 / -1; }
+    .field-group label { display: block; margin-bottom: 5px; color: #435063; font-size: 12px; font-weight: 700; }
+    .reason-box { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+    .reason-box h4 { margin: 0 0 4px; font-size: 13px; }
+    .reason-box p { margin-bottom: 9px; color: var(--muted); font-size: 11px; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      min-height: 40px;
+      padding: 6px 9px;
+      border: 1px solid #CFD9E5;
+      border-radius: 7px;
+      background: #fff;
+      color: #40536C;
+      cursor: pointer;
+      font-size: 11px;
+      text-align: left;
+    }
+    .chip:hover { border-color: var(--blue); background: var(--blue-soft); }
+    .builder-actions { display: flex; gap: 8px; margin-top: 14px; }
+    .builder-actions .btn { flex: 1; }
+    .generated { display: none; margin-top: 16px; }
+    .generated.active { display: block; }
+    .generated-label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 6px; color: var(--muted); font-size: 12px; }
+    .word-count.warn { color: #B45309; font-weight: 700; }
+    .essay {
+      width: 100%;
+      min-height: 260px;
+      padding: 15px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #F9FBFD;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .redline { margin-top: 12px; padding: 10px 12px; border-left: 3px solid var(--danger); background: var(--danger-soft); color: #7F1D1D; font-size: 12px; }
+    .checklist { display: grid; gap: 8px; margin-top: 12px; }
+    .check-row { display: flex; gap: 9px; align-items: start; color: #4B5563; font-size: 12px; }
+    .check-row input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--success); }
+    .phrase-list { display: grid; gap: 7px; margin-top: 12px; }
+    .phrase-button {
+      min-height: 40px;
+      padding: 8px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: #40536C;
+      cursor: pointer;
+      font: 12px/1.45 Georgia, serif;
+      text-align: left;
+    }
+    .phrase-button:hover { border-color: var(--blue); }
+    .writing-extras { margin-top: 18px; border-top: 1px solid var(--line); }
+    .writing-extras details { border-bottom: 1px solid var(--line); }
+    .writing-extras details:last-child { border-bottom: 0; }
+    .writing-extras summary {
+      padding: 14px 2px;
+      color: var(--blue);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      list-style-position: inside;
+    }
+    .sentence-list { display: grid; margin-bottom: 12px; }
+    .sentence-row {
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr) 32px;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+      min-height: 42px;
+      padding: 7px 3px;
+      border: 0;
+      border-top: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+    }
+    .sentence-row:hover { background: #FAFBFD; }
+    .sentence-row b { color: var(--navy); font: 600 13px/1.45 Georgia, serif; }
+    .sentence-row span:first-child { color: #8793A1; font: 600 11px/1 var(--mono); }
+    .model-essay {
+      margin-bottom: 14px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #FAFBFD;
+    }
+    .model-essay h4 { margin: 0 0 5px; color: var(--navy); font-size: 14px; }
+    .model-essay p { margin-bottom: 9px; color: #38485C; font: 13px/1.75 Georgia, serif; }
+    .model-essay small { display: block; color: var(--muted); font-size: 11px; }
+
+    .vocab-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 12px; }
+    .vocab-progress { color: var(--muted); font: 600 12px/1.4 var(--mono); }
+    .vocab-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .vocab-card { overflow: hidden; border: 1px solid var(--line); border-radius: 11px; background: #fff; }
+    .vocab-card.remembered { border-color: #B9E8CB; background: #FBFFFC; }
+    .vocab-card.missed { border-color: #F6C7C7; background: #FFFCFC; }
+    .vocab-front {
+      width: 100%;
+      min-height: 92px;
+      padding: 15px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+    }
+    .vocab-front strong { display: block; color: var(--navy); font: 700 21px/1.2 Georgia, serif; }
+    .vocab-front span { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; }
+    .vocab-back { display: none; padding: 0 15px 15px; }
+    .vocab-card.open .vocab-back { display: block; }
+    .vocab-back dl { display: grid; gap: 6px; margin: 0 0 12px; font-size: 12px; }
+    .vocab-back div { display: grid; grid-template-columns: 42px 1fr; gap: 8px; }
+    .vocab-back dt { color: var(--muted); }
+    .vocab-back dd { margin: 0; color: #374151; }
+    .word-actions { display: flex; gap: 7px; }
+    .word-actions button { flex: 1; min-height: 38px; border-radius: 7px; cursor: pointer; font-size: 12px; }
+    .word-good { border: 1px solid #BDECCB; background: var(--success-soft); color: #166534; }
+    .word-bad { border: 1px solid #F8CACA; background: var(--danger-soft); color: #991B1B; }
+    .wrong-book { margin-top: 14px; padding: 16px; }
+    .wrong-book h3 { font-size: 15px; }
+    .wrong-words { display: flex; flex-wrap: wrap; gap: 6px; }
+    .wrong-word { padding: 4px 8px; border-radius: 6px; background: #F9FAFB; color: #6B7280; font: 12px/1.3 Georgia, serif; }
+    .empty-note { margin: 0; color: var(--muted); font-size: 12px; }
+
+    .tabs { display: flex; overflow-x: auto; gap: 4px; margin-bottom: 12px; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      flex: 0 0 auto;
+      min-height: 42px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 99px;
+      background: #fff;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .tab.active { border-color: var(--navy); background: var(--navy); color: #fff; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .method-card { padding: 13px 15px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #354B67; font-size: 13px; }
+    .method-card strong { color: var(--navy); }
+    .reference-list { display: grid; margin-top: 12px; }
+    .reference-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 34px;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      padding: 11px 4px;
+      border: 0;
+      border-top: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+    }
+    .reference-row:hover { background: #FAFBFD; }
+    .reference-row b { color: var(--navy); font: 600 14px/1.45 Georgia, serif; }
+    .reference-row span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; }
+    .copy-mark { color: #9AA5B1; font: 700 15px/1 var(--mono); text-align: right; }
+    .three-checks { display: grid; gap: 8px; margin-top: 12px; }
+    .translation-exercises { display: grid; gap: 8px; margin-top: 12px; }
+    .translation-exercises details { border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+    .translation-exercises summary { padding: 11px 13px; cursor: pointer; font-size: 12px; }
+    .translation-exercises details p { margin: 0; padding: 0 13px 13px; color: #40536C; font: 13px/1.55 Georgia, serif; }
+
+    .timer-panel { padding: 20px; }
+    .mock-select { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 14px; }
+    .timer-stage-line { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 17px; }
+    .timer-stage-line span { height: 5px; border-radius: 99px; background: #E6EBF1; }
+    .timer-stage-line span.done { background: #8FB4DC; }
+    .timer-stage-line span.current { background: var(--blue); }
+    .timer-main { text-align: center; padding: 8px 0 17px; }
+    .timer-stage { color: var(--muted); font-size: 13px; }
+    .timer-display { margin: 3px 0 5px; color: var(--navy); font: 700 clamp(58px, 13vw, 86px)/1 var(--mono); letter-spacing: -0.08em; }
+    .timer-help { margin: 0; color: var(--muted); font-size: 11px; }
+    .timer-actions { display: flex; justify-content: center; gap: 8px; }
+    .mock-form { margin-top: 16px; padding: 18px; }
+    .mock-form-grid { display: grid; gap: 9px; }
+    .mock-form-row {
+      display: grid;
+      grid-template-columns: 48px 68px 58px 62px 62px minmax(110px, 1fr) minmax(135px, 1.2fr);
+      gap: 7px;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid var(--line);
+    }
+    .mock-form-row.head { border-top: 0; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .mock-form-row strong { color: var(--navy); font-size: 12px; }
+    .mock-form-row input, .mock-form-row select { min-height: 38px; padding: 6px 7px; font-size: 11px; }
+    .summary-box { display: none; margin-top: 12px; padding: 13px; border-radius: 9px; background: var(--blue-soft); color: #314B69; font-size: 12px; }
+    .summary-box.active { display: block; }
+
+    footer { border-top: 1px solid var(--line); background: #fff; }
+    .footer-inner { width: min(100% - 32px, 760px); margin-inline: auto; padding: 27px 0 32px; }
+    .footer-cta { margin-bottom: 15px; color: var(--navy); font-size: 14px; font-weight: 700; }
+    .footer-small { margin: 0; color: var(--muted); font-size: 11px; }
+    .bottom-cta { display: none; }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 80;
+      max-width: calc(100% - 32px);
+      padding: 10px 15px;
+      border-radius: 9px;
+      background: var(--navy-deep);
+      color: #fff;
+      box-shadow: 0 10px 35px rgba(19,42,71,0.25);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 10px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+    .toast.active { opacity: 1; transform: translate(-50%, 0); }
+    .runtime-alert {
+      position: relative;
+      z-index: 90;
+      padding: 12px 16px;
+      border-bottom: 1px solid #F3C6C6;
+      background: #FEF2F2;
+      color: #8B1E1E;
+      font-size: 13px;
+      line-height: 1.55;
+      text-align: center;
+    }
+    .runtime-alert[hidden] { display: none; }
+
+    @media (max-width: 720px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .count-card { display: grid; grid-template-columns: 1fr auto; column-gap: 18px; }
+      .count-label { grid-column: 1; }
+      .count-line { grid-column: 1; }
+      .count-times { grid-column: 2; grid-row: 1 / span 2; align-self: center; margin-top: 0; text-align: right; }
+      .builder-grid { grid-template-columns: 1fr; }
+      .mock-form-row { grid-template-columns: 1fr 1fr; }
+      .mock-form-row strong { grid-column: 1 / -1; }
+      .mock-form-row select, .mock-form-row input[data-field="fix"] { grid-column: 1 / -1; }
+      .mock-form-row.head { display: none; }
+    }
+    @media (max-width: 600px) {
+      .wrap, .hero-inner { width: min(100% - 24px, 760px); }
+      .brand-row { margin-bottom: 28px; }
+      .hero h1 { font-size: clamp(43px, 14vw, 62px); }
+      .hero-lede { font-size: 15px; }
+      .stat-ribbon { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .rule-strip { grid-template-columns: 1fr; gap: 4px; }
+      .how-to { grid-template-columns: 1fr; }
+      .how-to div { border-right: 0; border-bottom: 1px solid var(--line); }
+      .how-to div:last-child { border-bottom: 0; }
+      .section-head { align-items: start; flex-direction: column; gap: 7px; }
+      .diagnosis-intro { grid-template-columns: 1fr; }
+      .diagnosis-intro .btn { width: 100%; }
+      .report-head { flex-direction: column; }
+      .report-row { grid-template-columns: 48px 43px 1fr; gap: 8px; }
+      .report-row p { font-size: 12px; }
+      .plan-controls { grid-template-columns: 1fr; }
+      .control-group.wide { grid-column: auto; }
+      .today-card, .week-preview { padding: 16px; }
+      .today-head { flex-direction: column; gap: 5px; }
+      .task-row { grid-template-columns: 25px minmax(0, 1fr); }
+      .task-row .tag { grid-column: 2; width: fit-content; margin-top: -5px; }
+      .preview-item { grid-template-columns: 62px minmax(0, 1fr); }
+      .preview-item p { grid-column: 2; }
+      .all-days-grid, .module-grid, .vocab-grid, .field-grid { grid-template-columns: 1fr; }
+      .field-group.wide { grid-column: auto; }
+      .template-picker { grid-template-columns: repeat(2, 1fr); }
+      .builder-main, .builder-side { padding: 15px; }
+      .timer-panel, .mock-form { padding: 15px; }
+      .timer-actions .btn { flex: 1; }
+      .vocab-toolbar { align-items: start; flex-direction: column; }
+      .surface-pad { padding: 16px; }
+      .bottom-cta {
+        position: fixed;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        left: 12px;
+        z-index: 40;
+        display: flex;
+        min-height: 48px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 10px;
+        background: var(--navy);
+        color: #fff;
+        box-shadow: 0 12px 30px rgba(30,58,95,0.24);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .footer-inner { padding-bottom: 92px; }
+      main { padding-bottom: 96px; }
+      .toast { bottom: 76px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <noscript>
+    <div class="runtime-alert">此工具需要启用 JavaScript。不要在微信里直接预览本地 HTML 文件；请用 HTTPS 网站链接打开。</div>
+  </noscript>
+  <div class="runtime-alert" id="runtime-error" hidden>页面脚本没有正常启动。若你正在微信里直接预览本地文件，请改用 HTTPS 网站链接；若已用链接打开，请刷新页面后重试。</div>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand-row">
+        <a class="brand" href="#top" aria-label="四六级冲刺工具首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M3 8.5 7 12.5 14 4.5" stroke="#E8CB89" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>四六级冲刺工具</span>
+        </a>
+        <div class="exam-tag">2026.12.12<br>四六级笔试</div>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">30-day exam sprint</div>
+          <h1>30 天，<br><em>只练不会的。</em></h1>
+          <p class="hero-lede">先测短板，再补短板。把每天的复习变成一张可执行的冲刺清单，不再用平均用力换取不确定的分数。</p>
+          <div class="hero-actions">
+            <a class="btn" href="#diagnosis">3 分钟测短板</a>
+            <a class="btn btn-secondary" href="#plan">查看今日任务</a>
+            <span class="hero-note">数据只存在你的浏览器里</span>
+          </div>
+        </div>
+        <aside class="count-card" aria-label="考试倒计时">
+          <div class="count-label">距四六级笔试</div>
+          <div class="count-line">
+            <span class="count-number" id="countdown">--</span>
+            <span class="count-unit" id="count-unit">天</span>
+          </div>
+          <div class="count-times">
+            <span>四级 09:00–11:20</span>
+            <span>六级 15:00–17:25</span>
+          </div>
+        </aside>
+      </div>
+
+      <div class="day-map" id="hero-day-map" aria-hidden="true"></div>
+      <div class="day-map-caption">
+        <span>DAY 01</span>
+        <span id="hero-day-caption">TODAY · DAY 08</span>
+        <span>DAY 30</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="section-nav" aria-label="页面分区导航">
+    <div class="section-nav-inner" id="section-nav">
+      <a href="#diagnosis">测短板</a>
+      <a href="#plan">今日任务</a>
+      <a href="#modules">补短板</a>
+      <a href="#writing">作文</a>
+      <a href="#vocabulary">单词</a>
+      <a href="#reference">速查</a>
+      <a href="#mock">模考</a>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+    <section class="stat-ribbon" aria-label="考试分值概览">
+      <div class="stat"><strong>710</strong><span>考试总分</span></div>
+      <div class="stat"><strong>425</strong><span>常见参考线</span></div>
+      <div class="stat"><strong>70%</strong><span>听力 + 阅读</span></div>
+      <div class="stat"><strong>边听边涂</strong><span>答题卡 1 会收走</span></div>
+    </section>
+
+    <aside class="rule-strip" aria-label="考场规则">
+      <strong>考场规则</strong>
+      <p>听力只放一遍，不能暂停或回听。答题卡 1 在听力结束后（约 10:05）立刻收走，中间 5 分钟是收卷时间，不是涂卡时间；必须边听边涂。</p>
+    </aside>
+
+    <section class="how-to" aria-label="三步使用方法">
+      <div><b>01</b><span>选级别和每天时间，生成计划</span></div>
+      <div><b>02</b><span>每天打勾，周日复盘</span></div>
+      <div><b>03</b><span>作文用模板填空，默写一遍</span></div>
+    </section>
+
+    <section class="section" id="diagnosis">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Step 01 · Diagnose</div>
+          <h2>先知道该补哪一科</h2>
+        </div>
+        <p class="section-sub">不是再收集一套资料，而是用 4 个问题找出最该先修的那块短板。</p>
+      </div>
+
+      <div class="panel diagnosis-shell">
+        <div class="diagnosis-intro" id="diagnosis-intro">
+          <div>
+            <h3>先测短板，3 分钟</h3>
+            <p>测完告诉你先补哪科，并给四科各一句判断。</p>
+          </div>
+          <button class="btn" type="button" id="start-diagnosis">开始测试</button>
+        </div>
+
+        <div class="quiz" id="quiz" aria-live="polite">
+          <div class="quiz-head">
+            <span class="quiz-count" id="quiz-count">第 1 / 4 题</span>
+            <button class="text-link" type="button" id="quit-diagnosis">退出测试</button>
+          </div>
+          <div class="quiz-track" aria-hidden="true"><span id="quiz-progress"></span></div>
+          <h3 class="quiz-question" id="quiz-question"></h3>
+          <div class="option-grid" id="quiz-options" role="group" aria-label="选择最符合情况的答案"></div>
+          <div class="quiz-actions">
+            <button class="btn btn-quiet btn-small" type="button" id="quiz-back">返回上一题</button>
+            <span class="quiz-count" id="quiz-hint">选择后自动进入下一题</span>
+          </div>
+        </div>
+
+        <div class="report" id="diagnosis-report">
+          <div class="report-head">
+            <div>
+              <h3>你的短板报告</h3>
+              <p>状态只用于安排练习优先级，不是真实考试分数。</p>
+            </div>
+            <button class="text-link" type="button" id="retake-diagnosis">重新测试</button>
+          </div>
+          <div class="report-rows" id="report-rows"></div>
+          <div class="report-foot">
+            <div class="focus-line" id="focus-line"></div>
+            <a class="btn btn-small" href="#plan" id="jump-to-plan">生成我的冲刺计划</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="plan">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Step 02 · Daily plan</div>
+          <h2>今天只做这些</h2>
+        </div>
+        <p class="section-sub">听力、阅读占 70% 分值。计划按考试价值分配时间，不把整块时间都交给背单词。</p>
+      </div>
+
+      <div class="score-note">
+        <strong>70 / 30</strong>
+        <p>听力 248.5 分 + 阅读 248.5 分 = 70%；写作 106.5 分 + 翻译 106.5 分 = 30%。仔细阅读 10 题值 142 分，选词填空 10 题只值 35.5 分，时间要按分值和速度一起分配。</p>
+      </div>
+
+      <div class="panel" id="plan-panel">
+        <div class="plan-controls">
+          <div class="control-group">
+            <span class="control-label">报考级别</span>
+            <div class="segmented two" id="level-control" role="group" aria-label="选择报考级别">
+              <button class="segment active" type="button" data-level="cet4">四级</button>
+              <button class="segment" type="button" data-level="cet6">六级</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <span class="control-label">每天可用时间</span>
+            <div class="segmented three" id="time-control" role="group" aria-label="选择每天可用时间">
+              <button class="segment" type="button" data-minutes="60">1 小时</button>
+              <button class="segment active" type="button" data-minutes="120">2 小时</button>
+              <button class="segment" type="button" data-minutes="150">2.5 小时</button>
+            </div>
+          </div>
+          <div class="control-group wide">
+            <label class="control-label" for="plan-start">计划开始日期</label>
+            <input id="plan-start" name="planStart" type="date" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="today-card">
+          <div class="today-head">
+            <div>
+              <h3 class="today-title" id="today-title">Day 08</h3>
+              <p class="today-date" id="today-date"></p>
+            </div>
+            <span class="plan-progress-label" id="plan-progress-label" aria-live="polite">今日完成 0 / 0</span>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="plan-progress-bar"></span></div>
+          <div class="break-note" id="break-note" hidden></div>
+          <div class="task-list" id="task-list"></div>
+          <div class="completion" id="completion-note" aria-live="polite"></div>
+          <p class="busy-note" id="busy-note"></p>
+        </div>
+
+        <div class="week-preview">
+          <h3>未来 7 天</h3>
+          <div class="preview-list" id="week-preview"></div>
+          <details class="all-days">
+            <summary>看完完整 30 天</summary>
+            <div class="all-days-grid" id="all-days-grid"></div>
+          </details>
+          <details class="exam-checklist">
+            <summary>考前 3 天 · 考前 1 天 · 考试当天清单</summary>
+            <div class="exam-checklist-body">
+              <section>
+                <h4>考前 3 天</h4>
+                <ul>
+                  <li>确认考试时间、考场、座位信息。</li>
+                  <li>证件和文具装入透明袋。</li>
+                  <li>调试听力设备，备电池（如需）。</li>
+                  <li>提前踩点考场。</li>
+                  <li>不做新套题，不对答案焦虑。</li>
+                  <li>正常吃饭，23 点前睡。</li>
+                </ul>
+              </section>
+              <section>
+                <h4>考前 1 天</h4>
+                <ul>
+                  <li>只看错词本、模板卡和翻译易错点。</li>
+                </ul>
+              </section>
+              <section>
+                <h4>考试当天</h4>
+                <ul>
+                  <li>提前 30 分钟到考场。</li>
+                  <li>写作先审题列提纲，再动笔。</li>
+                  <li>听力边听边涂卡，不回头纠结。</li>
+                  <li>阅读难题标记后跳过，最后回看。</li>
+                  <li>翻译先通读，拆长句再下笔。</li>
+                </ul>
+              </section>
+            </div>
+          </details>
+        </div>
+      </div>
+      <div class="exam-ended-message panel" id="exam-ended-message" hidden>考试已结束，祝你好成绩。</div>
+    </section>
+
+    <section class="section" id="modules">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Step 03 · Repair</div>
+          <h2>每个短板都有练法</h2>
+        </div>
+        <p class="section-sub">状态会跟着诊断结果更新。点开卡片就能看到对应练法，不用再自己找“下一步做什么”。</p>
+      </div>
+      <div class="module-grid" id="module-grid">
+        <details class="module-card">
+          <summary>
+            <div>
+              <span class="module-icon">L</span>
+              <h3>听力</h3>
+              <p class="module-summary">辨音跟不上，或抓不住结构？先分类型再练。</p>
+            </div>
+            <span class="badge average module-status" data-status="listening">一般</span>
+          </summary>
+          <div class="module-body">
+            <ul>
+              <li><b>辨音跟不上：</b>精听三分类、二听法、跟读 5 遍。</li>
+              <li><b>抓不住结构：</b>信号词 20 个 + 结构听。</li>
+              <li>错题二听对原文，把没听出的词划出来，那才是真实盲区。</li>
+            </ul>
+          </div>
+        </details>
+        <details class="module-card">
+          <summary>
+            <div>
+              <span class="module-icon">R</span>
+              <h3>阅读</h3>
+              <p class="module-summary">词汇卡住、同义替换不敏感，还是做不完？</p>
+            </div>
+            <span class="badge average module-status" data-status="reading">一般</span>
+          </summary>
+          <div class="module-body">
+            <ul>
+              <li><b>词汇卡住：</b>高频词抽查 + 回原文定位。</li>
+              <li><b>读懂选不对：</b>同义替换 + 定位法。</li>
+              <li><b>做不完：</b>限时训练；仔细阅读优先，选词填空最后。</li>
+            </ul>
+          </div>
+        </details>
+        <details class="module-card">
+          <summary>
+            <div>
+              <span class="module-icon">W</span>
+              <h3>写作</h3>
+              <p class="module-summary">先写完整句子，再用理由库和框架提升。</p>
+            </div>
+            <span class="badge average module-status" data-status="writing">一般</span>
+          </summary>
+          <div class="module-body">
+            <ul>
+              <li><b>写不出完整句：</b>框架 + 句型 41–60。</li>
+              <li><b>没话说：</b>使用理由库 3 组。</li>
+              <li><b>模板化压分：</b>每篇至少替换一半内容，加入题目相关的具体词和例子。</li>
+            </ul>
+          </div>
+        </details>
+        <details class="module-card">
+          <summary>
+            <div>
+              <span class="module-icon">T</span>
+              <h3>翻译</h3>
+              <p class="module-summary">逐词硬译和句式单一，都有对应练法。</p>
+            </div>
+            <span class="badge average module-status" data-status="translation">一般</span>
+          </summary>
+          <div class="module-body">
+            <ul>
+              <li><b>逐词硬译：</b>长句拆成 2–3 个短句，先主干后修饰。</li>
+              <li><b>句式单一：</b>翻译句型 61–80 + 15 句练习。</li>
+              <li>文化类题材先意译，不逐字硬译。</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="writing">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Tool 01 · Writing</div>
+          <h2>把作文骨架填完整</h2>
+        </div>
+        <p class="section-sub">选一个结构，填入题目相关内容，生成后按 5 项清单自查。</p>
+      </div>
+
+      <div class="panel surface-pad">
+        <div class="template-picker" id="template-picker" role="group" aria-label="选择作文模板"></div>
+        <div class="builder-grid">
+          <div class="builder-main">
+            <div class="field-grid" id="template-fields"></div>
+            <div class="reason-box" id="reason-box">
+              <h4>没话说？点一个理由</h4>
+              <p>一次只放 1 个理由 + 1 个例子，别展开太多。</p>
+              <div class="chip-row" id="reason-chips"></div>
+            </div>
+            <div class="builder-actions">
+              <button class="btn" type="button" id="generate-writing">生成作文</button>
+              <button class="btn btn-quiet" type="button" id="reset-writing">清空重写</button>
+            </div>
+            <div class="generated" id="writing-output">
+              <div class="generated-label">
+                <span id="target-range">四级目标 120–180 词</span>
+                <span class="word-count" id="word-count">约 0 词</span>
+              </div>
+              <textarea class="essay" id="essay-box" name="essay" aria-label="生成的作文" autocomplete="off" spellcheck="true"></textarea>
+              <div class="builder-actions">
+                <button class="btn btn-small" type="button" id="copy-essay">复制全文</button>
+                <button class="btn btn-quiet btn-small" type="button" id="revise-essay">再改一版</button>
+              </div>
+            </div>
+            <div class="redline">模板只占骨架，每篇至少替换一半内容为题目相关的具体词和例子。</div>
+          </div>
+
+          <aside class="builder-side">
+            <h3>生成前自查</h3>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"> 字数够</label>
+              <label class="check-row"><input type="checkbox"> 每段首句有观点</label>
+              <label class="check-row"><input type="checkbox"> 至少 3 个连接词</label>
+              <label class="check-row"><input type="checkbox"> 无主谓不一致</label>
+              <label class="check-row"><input type="checkbox"> 拼写检查一遍</label>
+            </div>
+            <div class="phrase-list">
+              <button class="phrase-button" type="button">first</button>
+              <button class="phrase-button" type="button">moreover</button>
+              <button class="phrase-button" type="button">for example</button>
+              <button class="phrase-button" type="button">however</button>
+              <button class="phrase-button" type="button">therefore</button>
+              <button class="phrase-button" type="button">in short</button>
+            </div>
+          </aside>
+        </div>
+        <div class="writing-extras">
+          <details>
+            <summary>写作句型 41–60（点一条复制）</summary>
+            <div class="sentence-list" id="writing-patterns"></div>
+          </details>
+          <details>
+            <summary>两篇范文（看结构，不背全文）</summary>
+            <article class="model-essay">
+              <h4>范文一 · 大学生兼职</h4>
+              <p>Nowadays, doing part-time jobs has become a common topic among college students. In my view, a suitable part-time job benefits students more than it distracts them, as long as it does not take over their studies.</p>
+              <p>First, part-time work helps students understand how society works. For example, a classmate of mine worked in a small coffee shop and learned to communicate with different customers, a skill no textbook teaches directly. Second, earning even a small income teaches students the value of money, which helps them spend more wisely.</p>
+              <p>Admittedly, too many working hours can lower grades. However, if students limit the job to weekends and choose work related to their major, they can gain experience without losing focus. Therefore, I support part-time jobs with clear limits.</p>
+              <small>结构标注：立场（第 1 段末）→ 理由 1 + 例子 → 理由 2 → 让步 + 限制条件 → 重申立场。约 165 词。</small>
+            </article>
+            <article class="model-essay">
+              <h4>范文二 · 短视频对学习的影响</h4>
+              <p>Short videos have become part of daily life for many students. They bring quick information and entertainment, but they also quietly take away large blocks of time.</p>
+              <p>Several factors explain their attraction. On the one hand, short videos are easy to watch anywhere, and each clip gives instant fun. On the other hand, platforms keep recommending new clips, so students often watch far longer than they planned. As a result, time for reading and exercise becomes shorter.</p>
+              <p>In my opinion, the problem is not the videos themselves but how we use them. If students set a daily limit and follow creators who teach useful skills, short videos can become a learning tool instead of a distraction.</p>
+              <small>结构标注：现象 → 双因素分析 → 个人立场 + 解决办法。约 145 词。</small>
+            </article>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vocabulary">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Tool 02 · Recall</div>
+          <h2>遮住答案，再回忆</h2>
+        </div>
+        <p class="section-sub">背词每天不超过 40 分钟，把大块时间让给真题。错词次日和第 7 天再复习。</p>
+      </div>
+      <div class="vocab-toolbar">
+        <div class="vocab-progress" id="vocab-progress">今日 0 / 10</div>
+        <button class="text-link" type="button" id="refresh-words">换一组</button>
+      </div>
+      <div class="vocab-grid" id="vocab-grid"></div>
+      <div class="panel wrong-book">
+        <h3>错词本</h3>
+        <div class="wrong-words" id="wrong-words"></div>
+      </div>
+    </section>
+
+    <section class="section" id="reference">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Tool 03 · Reference</div>
+          <h2>考场信号，一眼能查</h2>
+        </div>
+        <p class="section-sub">点任意句型即可复制。先看方法，再记信号词，不要把它们当装饰。</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="速查分类">
+        <button class="tab active" type="button" role="tab" aria-selected="true" aria-controls="ref-listening" id="tab-listening">听力信号词</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="ref-reading" id="tab-reading">阅读句型</button>
+        <button class="tab" type="button" role="tab" aria-selected="false" aria-controls="ref-translation" id="tab-translation">翻译句型</button>
+      </div>
+      <div class="panel surface-pad">
+        <div class="tab-panel active" id="ref-listening" role="tabpanel" aria-labelledby="tab-listening">
+          <div class="method-card"><strong>听力三步法：</strong>读题干划关键词；只抓转折、因果、数字、态度词后面；错题二听对原文，把没听出的词划出来。</div>
+          <div class="three-checks">
+            <label class="check-row"><input type="checkbox" data-blind="不认识"> 单词不认识 → 去背</label>
+            <label class="check-row"><input type="checkbox" data-blind="没听出"> 认识但没听出 → 连读弱读，跟读 5 遍</label>
+            <label class="check-row"><input type="checkbox" data-blind="跟不上"> 语速跟不上 → 原速再听 3 遍</label>
+          </div>
+          <div class="reference-list" id="listening-list"></div>
+        </div>
+        <div class="tab-panel" id="ref-reading" role="tabpanel" aria-labelledby="tab-reading">
+          <div class="method-card"><strong>阅读做题顺序：</strong>仔细阅读优先；长篇匹配先看段落首尾句；选词填空最后做。同义替换处常是答案，原词重现反而可能是陷阱。</div>
+          <div class="reference-list" id="reading-list"></div>
+        </div>
+        <div class="tab-panel" id="ref-translation" role="tabpanel" aria-labelledby="tab-translation">
+          <div class="method-card"><strong>翻译四步法：</strong>通读划主干；长句拆成 2–3 个短句；补主语、定时态；回读检查单复数和搭配。</div>
+          <div class="reference-list" id="translation-list"></div>
+          <div class="translation-exercises" id="translation-exercises"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mock">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">Tool 04 · Mock exam</div>
+          <h2>把考试节奏先跑一遍</h2>
+        </div>
+        <p class="section-sub">真实顺序：写作 30 分钟 → 听力 25 分钟 → 阅读 40 分钟 → 翻译 30 分钟，中间不停表。</p>
+      </div>
+      <div class="panel timer-panel">
+        <div class="mock-select">
+          <div class="segmented two" id="mock-switch" role="group" aria-label="选择模考">
+            <button class="segment active" type="button" data-mock="1">模考 1</button>
+            <button class="segment" type="button" data-mock="2">模考 2</button>
+          </div>
+          <span class="quiz-count">按真实考试顺序计时</span>
+        </div>
+        <div class="timer-stage-line" id="timer-stage-line" aria-hidden="true"></div>
+        <div class="timer-main">
+          <div class="timer-stage" id="timer-stage">写作</div>
+          <div class="timer-display" id="timer-display" aria-live="polite">30:00</div>
+          <p class="timer-help" id="timer-help">开始后倒计时，到点自动进入下一阶段。</p>
+        </div>
+        <div class="timer-actions">
+          <button class="btn" type="button" id="timer-toggle">开始</button>
+          <button class="btn btn-quiet" type="button" id="timer-reset">重置</button>
+        </div>
+      </div>
+
+      <form class="panel mock-form" id="mock-form">
+        <div class="mock-form-head">
+          <h3>模考后自查</h3>
+          <p class="quiz-count">粗略估算仅供安排下一轮练习，不是真实报道分。</p>
+        </div>
+        <div class="mock-form-grid">
+          <div class="mock-form-row head" aria-hidden="true">
+            <span>科目</span><span>用时</span><span>错题数</span><span>答对</span><span>总数</span><span>错因</span><span>下次改法</span>
+          </div>
+          <div class="mock-form-row">
+            <strong>听力</strong>
+            <input aria-label="听力用时" name="listeningTime" data-field="time" inputmode="numeric" autocomplete="off" placeholder="例如：30…">
+            <input aria-label="听力错题数" name="listeningErrors" data-field="errors" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="例如：3…">
+            <input aria-label="听力答对题数" name="listeningCorrect" data-field="correct" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="答对…">
+            <input aria-label="听力总题数" name="listeningTotal" data-field="total" type="number" step="any" min="1" inputmode="decimal" autocomplete="off" placeholder="总数…">
+            <select aria-label="听力错因" name="listeningCause" data-field="cause">
+              <option>听漏</option><option>定位错</option><option>词不认识</option><option>时间不够</option>
+            </select>
+            <input aria-label="听力下次改法" name="listeningFix" data-field="fix" autocomplete="off" placeholder="例如：先看题干…">
+          </div>
+          <div class="mock-form-row">
+            <strong>阅读</strong>
+            <input aria-label="阅读用时" name="readingTime" data-field="time" inputmode="numeric" autocomplete="off" placeholder="例如：40…">
+            <input aria-label="阅读错题数" name="readingErrors" data-field="errors" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="例如：4…">
+            <input aria-label="阅读答对题数" name="readingCorrect" data-field="correct" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="答对…">
+            <input aria-label="阅读总题数" name="readingTotal" data-field="total" type="number" step="any" min="1" inputmode="decimal" autocomplete="off" placeholder="总数…">
+            <select aria-label="阅读错因" name="readingCause" data-field="cause">
+              <option>听漏</option><option>定位错</option><option>词不认识</option><option>时间不够</option>
+            </select>
+            <input aria-label="阅读下次改法" name="readingFix" data-field="fix" autocomplete="off" placeholder="例如：先定位同义替换…">
+          </div>
+          <div class="mock-form-row">
+            <strong>写作</strong>
+            <input aria-label="写作用时" name="writingTime" data-field="time" inputmode="numeric" autocomplete="off" placeholder="例如：30…">
+            <input aria-label="写作错题数" name="writingIssues" data-field="errors" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="例如：2…">
+            <input aria-label="写作答对题数" name="writingCorrect" data-field="correct" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="得分…">
+            <input aria-label="写作总题数" name="writingTotal" data-field="total" type="number" step="any" min="1" inputmode="decimal" autocomplete="off" placeholder="满分…">
+            <select aria-label="写作错因" name="writingCause" data-field="cause">
+              <option>听漏</option><option>定位错</option><option>词不认识</option><option>时间不够</option>
+            </select>
+            <input aria-label="写作下次改法" name="writingFix" data-field="fix" autocomplete="off" placeholder="例如：先写两个理由…">
+          </div>
+          <div class="mock-form-row">
+            <strong>翻译</strong>
+            <input aria-label="翻译用时" name="translationTime" data-field="time" inputmode="numeric" autocomplete="off" placeholder="例如：30…">
+            <input aria-label="翻译错题数" name="translationIssues" data-field="errors" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="例如：2…">
+            <input aria-label="翻译答对题数" name="translationCorrect" data-field="correct" type="number" step="any" min="0" inputmode="decimal" autocomplete="off" placeholder="得分…">
+            <input aria-label="翻译总题数" name="translationTotal" data-field="total" type="number" step="any" min="1" inputmode="decimal" autocomplete="off" placeholder="满分…">
+            <select aria-label="翻译错因" name="translationCause" data-field="cause">
+              <option>听漏</option><option>定位错</option><option>词不认识</option><option>时间不够</option>
+            </select>
+            <input aria-label="翻译下次改法" name="translationFix" data-field="fix" autocomplete="off" placeholder="例如：先拆主干…">
+          </div>
+          <button class="btn" type="submit">生成模考小结</button>
+          <div class="summary-box" id="mock-summary" aria-live="polite"></div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-cta">完整 30 天计划 + 300 高频词 + 2 篇范文，都在「四六级冲刺包」里，小红书搜「四六级冲刺学长」主页能看到。</p>
+      <p class="footer-small">本工具不提供真题、不替代正式考试，也不承诺通过分数。模考请使用学校发放、官方出版或正规渠道购买的题目；模板只占骨架，必须替换为题目相关内容。做题数据与计划状态只保存在当前浏览器，不上传服务器。</p>
+    </div>
+  </footer>
+
+  <a class="bottom-cta" href="#plan">开始今日任务</a>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      function showRuntimeError() {
+        var alertBox = document.getElementById("runtime-error");
+        if (alertBox) alertBox.hidden = false;
+      }
+      window.addEventListener("error", showRuntimeError);
+      window.setTimeout(function () {
+        if (document.documentElement.getAttribute("data-app-ready") !== "true") {
+          showRuntimeError();
+        }
+      }, 4000);
+    })();
+  </script>
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+    const DAY = 86400000;
+    const EXAM_DATE = new Date(2026, 11, 12, 9, 0, 0);
+    const EXAM_END = new Date(2026, 11, 12, 23, 59, 59);
+    const dateFormatter = new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric" });
+    const weekdayFormatter = new Intl.DateTimeFormat("zh-CN", { weekday: "long" });
+    const STORE = {
+      diagnosis: "cetDiagnosis",
+      plan: "cetPlanSettings",
+      tasks: "cetTasks",
+      streak: "cetStreakDates",
+      writing: "cetWritingDraft",
+      wrong: "cetWrongWords",
+      quiz: "cetDailyQuiz",
+      decisions: "cetQuizDecisions",
+      blind: "cetBlindChecks",
+      mock: "cetMockDraft"
+    };
+
+    function readStore(key, fallback) {
+      try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function writeStore(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    }
+
+    function localDateKey(date = new Date()) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function atMidnight(date) {
+      return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+    function daysBetween(from, to) {
+      return Math.ceil((atMidnight(to) - atMidnight(from)) / DAY);
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    let toastTimer;
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("active");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("active"), 1900);
+    }
+
+    async function copyText(text, success = "已复制") {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast(success);
+        return true;
+      } catch (e) {
+        const helper = document.createElement("textarea");
+        helper.value = text;
+        helper.setAttribute("readonly", "");
+        helper.style.position = "fixed";
+        helper.style.opacity = "0";
+        document.body.appendChild(helper);
+        helper.select();
+        const ok = document.execCommand("copy");
+        helper.remove();
+        showToast(ok ? success : "复制失败，请手动全选");
+        return ok;
+      }
+    }
+
+    const heroDate = atMidnight(new Date());
+    const heroDaysLeft = Math.max(0, daysBetween(heroDate, EXAM_DATE));
+    const heroPlanDay = heroDaysLeft > 30 ? 1 : clamp(31 - heroDaysLeft, 1, 30);
+    const examEnded = Date.now() > EXAM_END.getTime();
+    if (examEnded) {
+      $("#countdown").textContent = "已结束";
+      $("#count-unit").textContent = "";
+      $(".count-label").textContent = "考试已结束，祝你好成绩";
+      $("#hero-day-caption").textContent = "EXAM COMPLETE";
+    } else if (heroDaysLeft === 0) {
+      $("#countdown").textContent = "今天";
+      $("#count-unit").textContent = "";
+      $(".count-label").textContent = "今天就考了，加油";
+      $("#hero-day-caption").textContent = "TODAY · EXAM DAY";
+    } else {
+      $("#countdown").textContent = heroDaysLeft;
+      $("#hero-day-caption").textContent = `TODAY · DAY ${String(heroPlanDay).padStart(2, "0")}`;
+    }
+    $("#hero-day-map").innerHTML = Array.from({ length: 30 }, (_, index) => {
+      const day = index + 1;
+      const className = day < heroPlanDay ? "done" : day === heroPlanDay ? "current" : "";
+      return `<span class="${className}"></span>`;
+    }).join("");
+
+    const planDays = [
+      { tasks: [["单词主题 1–2，共 24 词，只认英文释义", "词汇"], ["听力精听 1 段，先听再看原文", "补辨音"], ["阅读长篇匹配 1 篇，练定位", "补定位"], ["写作框架第 1 段，仿写开头 1 个", "补完整句"]] },
+      { tasks: [["单词主题 3–4 + 复习 Day 1 错词", "词汇"], ["听力短篇新闻类练习", "补结构"], ["仔细阅读 1 篇，划同义替换", "补同义替换"], ["写作框架第 2 段：2 个理由句 + 例证句", "补理由"]] },
+      { tasks: [["单词主题 5–6", "词汇"], ["听力长对话 1 篇", "补结构"], ["阅读选词填空 1 篇，先看词性再填", "补词性"], ["翻译句 1–3，先练句型", "补句型"]] },
+      { tasks: [["单词主题 7–8 + 全量测 100 词", "词汇"], ["听力讲座类 1 篇", "补结构"], ["仔细阅读 1 篇，限时 18 分钟", "补速度"], ["写作框架第 3 段：结尾 + 让步句各 1 个", "补结尾"]] },
+      { tasks: [["单词只复习错词本，不学新词", "词汇"], ["听力整套限时做 1 次，错题听第 2 遍", "补辨音"], ["写作按框架完整写 1 篇 120–150 词短文", "补完整篇"]] },
+      { tasks: [["高频搭配抽查 30 个", "词汇"], ["阅读整套限时做 1 次，复盘定位错误", "补定位"], ["修改 Day 5 作文，检查主谓一致和拼写", "补准确度"]] },
+      { tasks: [["错词第 3 轮", "周复盘"], ["听力 + 阅读半套模考，记录分数", "周复盘"], ["整理个人模板卡 1 张", "周复盘"]] },
+      { tasks: [["速记词 101–125", "词汇"], ["听力长对话 2 篇，二听划盲词", "补辨音"], ["阅读匹配 1 篇保温", "补定位"]] },
+      { tasks: [["速记词 126–150", "词汇"], ["仔细阅读 2 篇，整理同义替换 10 组", "补同义替换"], ["听力精听 1 段保温", "补辨音"]] },
+      { tasks: [["复习 101–150 错词", "词汇"], ["听力短篇 + 讲座各 1，练笔记符号", "补结构"], ["翻译句 1–3", "补句型"]] },
+      { tasks: [["速记词 151–175", "词汇"], ["选词填空 2 篇，先标词性", "补词性"], ["观点类模板仿写 1 篇", "补理由"]] },
+      { tasks: [["速记词 176–200", "词汇"], ["听力整卷限时，错题分类统计", "补辨音"], ["匹配 1 篇限时保温", "补定位"]] },
+      { tasks: [["复习 151–200 错词", "词汇"], ["阅读整卷限时，复盘定位错因", "补速度"], ["翻译句 4–6", "补句型"]] },
+      { tasks: [["周复盘：不学新词", "周复盘"], ["半套模考", "周复盘"], ["改作文 + 填周复盘", "周复盘"]] },
+      { tasks: [["速记词 201–225", "词汇"], ["听力跟读错题原文各 1 遍", "补辨音"], ["建议类模板仿写 1 篇", "补理由"]] },
+      { tasks: [["速记词 226–250", "词汇"], ["仔细阅读限时，目标 18 分钟/篇", "补速度"], ["翻译句 7–9", "补句型"]] },
+      { tasks: [["复习 201–250 错词", "词汇"], ["听力 + 阅读各半套，练涂卡节奏", "补节奏"], ["整理个人连接词卡", "补结构"]] },
+      { tasks: [["速记词 251–275", "词汇"], ["长篇匹配提速，目标 12 分钟", "补速度"], ["图表 / 现象类仿写 1 篇", "补理由"]] },
+      { tasks: [["速记词 276–300", "词汇"], ["翻译句 10–12 + 回译自查", "补句型"], ["听力精听 1 段保温", "补辨音"]] },
+      { tasks: [["300 词全量自测", "词汇"], ["翻译句 13–15", "补句型"], ["作文定稿个人模板，只留 1 版", "补完整篇"]] },
+      { tasks: [["全部错词复习", "词汇"], ["整套模考 1 次并计时", "模考"], ["填模考自查表", "模考"]] },
+      { tasks: [["错词第 3 轮", "词汇"], ["听力错题专项重听", "补辨音"], ["阅读错题重做", "补定位"]] },
+      { tasks: [["高频搭配抽查 50 个", "词汇"], ["写作、翻译各限时 1 次", "限时"], ["准备模考周用品", "考前"]] },
+      { tasks: [["全真模考 1：按考试时段、计时、涂卡", "模考"], ["中途不查答案", "模考"]] },
+      { tasks: [["只复盘模考 1", "模考"], ["听力二听 + 阅读重定位", "补定位"], ["作文重写结尾", "补结尾"]] },
+      { tasks: [["全真模考 2", "模考"], ["重点练时间分配", "补节奏"], ["难题先跳过", "补节奏"]] },
+      { tasks: [["只复盘模考 2", "模考"], ["错词本最后一轮", "词汇"]] },
+      { tasks: [["轻量日：模板卡 + 高频搭配过一遍", "考前"], ["不做新题", "考前"]] },
+      { tasks: [["执行考前 3 天清单", "考前"], ["确认考试时间、考场、座位", "考前"], ["只过错词本 + 模板卡 + 翻译易错点", "考前"]] },
+      { tasks: [["考试日 / 最后一次半套模考", "考试日"], ["提前 30 分钟到考场", "考试日"], ["写作先列提纲；听力边听边涂卡", "考试日"]] }
+    ];
+
+    const planState = readStore(STORE.plan, { level: "cet4", minutes: 120 });
+    let planLevel = planState.level;
+    let planMinutes = Number(planState.minutes) || 120;
+    const planStart = $("#plan-start");
+    planStart.value = planState.start || localDateKey();
+
+    function setSegment(selector, activePredicate) {
+      $$(selector).forEach(button => button.classList.toggle("active", activePredicate(button)));
+    }
+
+    function syncPlanSegments() {
+      setSegment("#level-control .segment", button => button.dataset.level === planLevel);
+      setSegment("#time-control .segment", button => Number(button.dataset.minutes) === planMinutes);
+    }
+
+    function planDayFor(date) {
+      const remaining = daysBetween(date, EXAM_DATE);
+      if (remaining <= 0) return 30;
+      if (remaining > 30) return 1;
+      return clamp(31 - remaining, 1, 30);
+    }
+
+    function formatDate(date) {
+      return dateFormatter.format(date);
+    }
+
+    function getTasks(dayNumber) {
+      const base = planMinutes === 60 ? [
+          ["复习错词本，不学新词", "忙时版"],
+          ["听力错题二听，划盲词", "忙时版"],
+          ["阅读 1 篇，限时完成", "忙时版"]
+        ] : planDays[dayNumber - 1].tasks;
+      const diagnosis = currentDiagnosis();
+      if (!diagnosis) return base;
+      const extras = [];
+      if (diagnosis.listening === 0) extras.push(["精听 1 段（诊断加权）", "补辨音"]);
+      if (diagnosis.reading === 0) extras.push(["限时仔细阅读 1 篇（诊断加权）", "补速度"]);
+      if (diagnosis.writing === 0) extras.push(["多仿写 1 篇（诊断加权）", "补完整篇"]);
+      if (diagnosis.translation === 0) extras.push(["多练 2 句翻译（诊断加权）", "补句型"]);
+      return [...base, ...extras];
+    }
+
+    function taskKey(dayNumber, index) {
+      return `${localDateKey()}-${dayNumber}-${index}`;
+    }
+
+    function streakDates() {
+      return readStore(STORE.streak, []);
+    }
+
+    function calculateStreak(dates) {
+      const set = new Set(dates);
+      let cursor = atMidnight(new Date());
+      if (!set.has(localDateKey(cursor))) cursor = new Date(cursor.getTime() - DAY);
+      let streak = 0;
+      while (set.has(localDateKey(cursor))) {
+        streak += 1;
+        cursor = new Date(cursor.getTime() - DAY);
+      }
+      return streak;
+    }
+
+    function updateTaskCompletion(dayNumber, tasks) {
+      const allDone = $$("#task-list .task-check").length > 0 && $$("#task-list .task-check").every(input => input.checked);
+      const completion = $("#completion-note");
+      const dates = streakDates();
+      const today = localDateKey();
+      if (allDone && !dates.includes(today)) {
+        dates.push(today);
+        writeStore(STORE.streak, dates);
+      }
+      if (allDone) {
+        completion.textContent = `今日完成，明天见。连续打卡 ${calculateStreak(dates)} 天。`;
+        completion.classList.add("active");
+        $("#break-note").hidden = true;
+      } else {
+        completion.classList.remove("active");
+      }
+      const total = tasks.length;
+      const done = $$("#task-list .task-check").filter(input => input.checked).length;
+      $("#plan-progress-bar").style.width = `${total ? done / total * 100 : 0}%`;
+      $("#plan-progress-label").textContent = `今日完成 ${done} / ${total}`;
+    }
+
+    function renderPlan() {
+      const today = atMidnight(new Date());
+      const remaining = Math.max(0, daysBetween(today, EXAM_DATE));
+      if (examEnded) {
+        $("#plan-panel").hidden = true;
+        $("#exam-ended-message").hidden = false;
+        return;
+      }
+      $("#plan-panel").hidden = false;
+      $("#exam-ended-message").hidden = true;
+      const dayNumber = planDayFor(today);
+      const tasks = getTasks(dayNumber);
+      const saved = readStore(STORE.tasks, {});
+      $("#today-title").textContent = remaining === 0 ? "考试日" : `Day ${String(dayNumber).padStart(2, "0")}`;
+      $("#today-date").textContent = `${formatDate(today)} ${weekdayFormatter.format(today)} · 距考试 ${remaining} 天`;
+      const recordedDates = streakDates()
+        .filter(key => new Date(`${key}T00:00:00`) <= today)
+        .sort();
+      const lastActivity = recordedDates.length
+        ? new Date(`${recordedDates[recordedDates.length - 1]}T00:00:00`)
+        : new Date(`${planStart.value}T00:00:00`);
+      const missedDays = Number.isNaN(lastActivity.getTime()) ? 0 : Math.max(0, daysBetween(lastActivity, today));
+      $("#break-note").hidden = missedDays < 3;
+      $("#break-note").textContent = missedDays >= 3 ? "断了 3 天，从 Day 1 的错词本重新接。" : "";
+      $("#task-list").innerHTML = tasks.map(([text, tag], index) => {
+        const key = taskKey(dayNumber, index);
+        const checked = Boolean(saved[key]);
+        return `
+          <div class="task-row ${checked ? "completed" : ""}">
+            <input class="task-check" type="checkbox" data-task-key="${key}" ${checked ? "checked" : ""} aria-label="${escapeHtml(text)}">
+            <span class="task-text">${escapeHtml(text)}</span>
+            <span class="tag">${escapeHtml(tag)}</span>
+          </div>`;
+      }).join("");
+      $$(".task-check").forEach(input => input.addEventListener("change", () => {
+        const current = readStore(STORE.tasks, {});
+        current[input.dataset.taskKey] = input.checked;
+        writeStore(STORE.tasks, current);
+        input.closest(".task-row").classList.toggle("completed", input.checked);
+        updateTaskCompletion(dayNumber, tasks);
+      }));
+      $("#busy-note").textContent = planMinutes === 60
+        ? "1 小时档只保留最低标准：单词复习（不学新词）+ 听力二听 + 阅读 1 篇。"
+        : "时间不够时只保留最低标准：单词复习（不学新词）+ 听力二听 + 阅读 1 篇。";
+      updateTaskCompletion(dayNumber, tasks);
+
+      $("#week-preview").innerHTML = Array.from({ length: 7 }, (_, offset) => {
+        const date = new Date(today.getTime() + offset * DAY);
+        const day = planDayFor(date);
+        const summary = planDays[day - 1].tasks.map(task => task[0]).slice(0, 2).join("；");
+        return `<div class="preview-item">
+          <strong>Day ${String(day).padStart(2, "0")}</strong>
+          <span>${formatDate(date)}</span>
+          <p>${escapeHtml(summary)}</p>
+        </div>`;
+      }).join("");
+    }
+
+    $("#all-days-grid").innerHTML = planDays.map((day, index) => {
+      const number = index + 1;
+      const typeClass = number === 7 || number === 14 || number === 21 ? "review" : number >= 24 ? "mock" : "";
+      const title = number === 7 || number === 14 || number === 21 ? "周复盘" : number >= 24 ? "模考周" : day.tasks[0][1];
+      return `<div class="day-chip ${typeClass}">
+        <strong>DAY ${String(number).padStart(2, "0")}</strong>
+        <p>${escapeHtml(title)} · ${escapeHtml(day.tasks.slice(0, 2).map(task => task[0]).join("；"))}</p>
+      </div>`;
+    }).join("");
+
+    $("#level-control").addEventListener("click", event => {
+      const button = event.target.closest("[data-level]");
+      if (!button) return;
+      planLevel = button.dataset.level;
+      syncPlanSegments();
+      writeStore(STORE.plan, { level: planLevel, minutes: planMinutes, start: planStart.value });
+      $("#target-range").textContent = targetRange();
+      if ($("#writing-output").classList.contains("active")) updateWordCount();
+    });
+    $("#time-control").addEventListener("click", event => {
+      const button = event.target.closest("[data-minutes]");
+      if (!button) return;
+      planMinutes = Number(button.dataset.minutes);
+      syncPlanSegments();
+      writeStore(STORE.plan, { level: planLevel, minutes: planMinutes, start: planStart.value });
+      renderPlan();
+    });
+    planStart.addEventListener("change", () => {
+      writeStore(STORE.plan, { level: planLevel, minutes: planMinutes, start: planStart.value });
+    });
+    syncPlanSegments();
+    renderPlan();
+
+    const diagnosisQuestions = [
+      {
+        key: "listening",
+        label: "听力",
+        question: "一段听力材料，你大概能听懂几成？",
+        options: ["不到一半", "一半左右", "大半以上"]
+      },
+      {
+        key: "reading",
+        label: "阅读",
+        question: "一篇仔细阅读（约 300 词）通常要做几分钟？",
+        options: ["15 分钟以上", "8–15 分钟", "8 分钟以内"]
+      },
+      {
+        key: "writing",
+        label: "写作",
+        question: "30 分钟能写完一篇 120 词作文吗？",
+        options: ["写不完", "勉强写完", "能写完，还有时间检查"]
+      },
+      {
+        key: "translation",
+        label: "翻译",
+        question: "看到长句，能先拆开再翻译吗？",
+        options: ["拆不开，逐词硬译", "能拆，但句式单一", "能拆，句式也多"]
+      }
+    ];
+    const diagnosisCopy = {
+      listening: [
+        "先练精听和辨音，别急着刷整套。",
+        "补信号词与结构听，练边听边涂卡。",
+        "保持精听手感，主攻整套节奏。"
+      ],
+      reading: [
+        "先补词汇定位与限时训练。",
+        "同义替换和回原文定位是关键。",
+        "保持仔细阅读速度与稳定率。"
+      ],
+      writing: [
+        "先补完整句与三段式框架。",
+        "用理由库解决没话说。",
+        "重点去掉过度模板化。"
+      ],
+      translation: [
+        "先练长句拆解，不要逐词硬译。",
+        "扩充句式，练主动和被动。",
+        "控制失误，最后通读回查。"
+      ]
+    };
+    const stateNames = ["弱", "一般", "稳"];
+    let diagnosisIndex = 0;
+    const quizAnswers = Array(4).fill(null);
+
+    function currentDiagnosis() {
+      return readStore(STORE.diagnosis, null);
+    }
+
+    function renderDiagnosisStatus(status) {
+      $$(".module-status").forEach(badge => {
+        const value = status[badge.dataset.status];
+        badge.textContent = stateNames[value];
+        badge.className = `badge ${["weak", "average", "stable"][value]} module-status`;
+      });
+    }
+
+    function showReport(status) {
+      $("#diagnosis-intro").classList.add("hidden");
+      $("#quiz").classList.remove("active");
+      $("#diagnosis-report").classList.add("active");
+      $("#report-rows").innerHTML = diagnosisQuestions.map(question => {
+        const value = status[question.key];
+        const className = ["weak", "average", "stable"][value];
+        return `<div class="report-row">
+          <b>${question.label}</b>
+          <span class="badge ${className}">${stateNames[value]}</span>
+          <p>${diagnosisCopy[question.key][value]}</p>
+        </div>`;
+      }).join("");
+      const weak = diagnosisQuestions.filter(question => status[question.key] === 0).map(question => question.label);
+      const average = diagnosisQuestions.filter(question => status[question.key] === 1).map(question => question.label);
+      const focus = weak.length ? `主攻：${weak.join(" + ")}` : average.length ? `先稳住：${average.join(" + ")}` : "四项都稳，主攻模拟考试节奏";
+      $("#focus-line").textContent = `${focus}。计划会自动把更多时间放在短板科目上。`;
+      renderDiagnosisStatus(status);
+      renderPlan();
+    }
+
+    function renderDiagnosis() {
+      const saved = currentDiagnosis();
+      if (saved) showReport(saved);
+      else renderDiagnosisStatus({ listening: 1, reading: 1, writing: 1, translation: 1 });
+    }
+
+    function renderQuizQuestion() {
+      const question = diagnosisQuestions[diagnosisIndex];
+      $("#quiz-count").textContent = `第 ${diagnosisIndex + 1} / 4 题`;
+      $("#quiz-progress").style.width = `${(diagnosisIndex + 1) / 4 * 100}%`;
+      $("#quiz-question").textContent = question.question;
+      $("#quiz-options").innerHTML = question.options.map((option, index) => `
+        <button class="option-btn ${quizAnswers[diagnosisIndex] === index ? "selected" : ""}" type="button" data-value="${index}">
+          ${escapeHtml(option)}
+        </button>`).join("");
+      $("#quiz-back").disabled = diagnosisIndex === 0;
+      $("#quiz-hint").textContent = diagnosisIndex === 3 ? "选择后查看报告" : "选择后自动进入下一题";
+      $$(".option-btn", $("#quiz-options")).forEach(button => {
+        button.addEventListener("click", () => chooseDiagnosis(Number(button.dataset.value)));
+      });
+    }
+
+    function chooseDiagnosis(value) {
+      quizAnswers[diagnosisIndex] = value;
+      renderQuizQuestion();
+      setTimeout(() => {
+        if (diagnosisIndex < 3) {
+          diagnosisIndex += 1;
+          renderQuizQuestion();
+        } else {
+          const status = {};
+          diagnosisQuestions.forEach((question, index) => {
+            status[question.key] = quizAnswers[index];
+          });
+          writeStore(STORE.diagnosis, status);
+          showReport(status);
+          showToast("短板报告已生成");
+        }
+      }, 180);
+    }
+
+    $("#start-diagnosis").addEventListener("click", () => {
+      diagnosisIndex = 0;
+      quizAnswers.fill(null);
+      $("#diagnosis-intro").classList.add("hidden");
+      $("#diagnosis-report").classList.remove("active");
+      $("#quiz").classList.add("active");
+      renderQuizQuestion();
+    });
+    $("#quiz-back").addEventListener("click", () => {
+      if (diagnosisIndex > 0) {
+        diagnosisIndex -= 1;
+        renderQuizQuestion();
+      }
+    });
+    $("#quit-diagnosis").addEventListener("click", () => {
+      $("#quiz").classList.remove("active");
+      $("#diagnosis-intro").classList.remove("hidden");
+    });
+    $("#retake-diagnosis").addEventListener("click", () => {
+      $("#diagnosis-report").classList.remove("active");
+      $("#diagnosis-intro").classList.remove("hidden");
+      $("#quiz").classList.remove("active");
+    });
+    $("#jump-to-plan").addEventListener("click", () => {
+      setTimeout(() => $("#plan").scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+    });
+    renderDiagnosis();
+
+    const templates = {
+      opinion: {
+        name: "观点议论",
+        hint: "立场明确，两理由一让步",
+        fields: [
+          ["viewA", "观点 A"], ["viewB", "观点 B"], ["yourView", "你的观点"],
+          ["reason1", "理由 1"], ["example", "例子"], ["reason2", "理由 2"],
+          ["support", "补充说明"], ["action", "行动"], ["positiveResult", "积极结果"]
+        ],
+        build: values => `Some people hold that ${values.viewA}, while others argue that ${values.viewB}. From my perspective, ${values.yourView}.\n\nMy reasons are as follows. First, ${values.reason1}. For example, ${values.example}. Second, ${values.reason2}. Moreover, ${values.support}.\n\nIn conclusion, as long as we ${values.action}, ${values.positiveResult} will follow.`
+      },
+      solution: {
+        name: "建议解决",
+        hint: "问题 + 三方措施 + 目标",
+        fields: [
+          ["problem", "问题"], ["who1", "主体 1"], ["action1", "措施 1"],
+          ["who2", "主体 2"], ["action2", "措施 2"], ["who3", "主体 3"],
+          ["action3", "措施 3"], ["goal", "目标"]
+        ],
+        build: values => `Nowadays, ${values.problem} has aroused wide concern.\n\nTo address this, three measures can be taken. First, ${values.who1} should ${values.action1}. Second, ${values.who2} should ${values.action2}. Third, ${values.who3} should ${values.action3}.\n\nOnly in this way can we ${values.goal}.`
+      },
+      chart: {
+        name: "现象图表",
+        hint: "描述趋势，分析两个因素",
+        fields: [
+          ["trend", "带数据的趋势"], ["factor1", "因素 1"],
+          ["factor2", "因素 2"], ["reason", "判断原因"]
+        ],
+        build: values => `As is shown in the chart / As the phenomenon shows, ${values.trend}.\n\nSeveral factors account for this. On the one hand, ${values.factor1}. On the other hand, ${values.factor2}.\n\nIn my opinion, this trend will continue / should be guided, because ${values.reason}.`
+      },
+      universal: {
+        name: "通用三段",
+        hint: "主题 + 两理由 + 让步",
+        fields: [
+          ["topic", "主题"], ["group", "相关人群"], ["position", "你的立场"],
+          ["reason1", "理由 1"], ["example", "简短例子"], ["reason2", "理由 2"],
+          ["benefit", "带来的好处"], ["opposite", "反方观点"], ["action", "行动"], ["positiveResult", "积极结果"]
+        ],
+        build: values => `Nowadays, ${values.topic} has become a common topic among ${values.group}. In my view, ${values.position} matters more than we think.\n\nFirst, ${values.reason1}. For example, ${values.example}. Second, ${values.reason2}, which helps people ${values.benefit}.\n\nAdmittedly, ${values.opposite} has some truth. However, if we ${values.action}, we can ${values.positiveResult}. Therefore, ${values.position}.`
+      }
+    };
+    const reasons = [
+      ["个人成长", ["broaden one's horizons", "develop practical skills", "build confidence"]],
+      ["社会发展", ["promote economic growth", "improve people's living standards", "protect the environment"]],
+      ["问题解决", ["raise public awareness", "take effective measures", "work together"]]
+    ];
+    const writingPatternSentences = [
+      "There is no doubt that...",
+      "It is universally acknowledged that...",
+      "From my perspective...",
+      "A case in point is...",
+      "Take ... as an example.",
+      "On the one hand... on the other hand...",
+      "In addition / Furthermore / Moreover",
+      "As a result / Consequently",
+      "In contrast / By comparison",
+      "It is high time that we...",
+      "Only in this way can we...",
+      "The more..., the more...",
+      "Not only... but also...",
+      "Whether... or not depends on...",
+      "I firmly believe that...",
+      "To begin with...",
+      "Last but not least...",
+      "In a word / In conclusion",
+      "As far as I am concerned...",
+      "It goes without saying that..."
+    ];
+    const writingDraft = readStore(STORE.writing, {});
+    let activeTemplate = "opinion";
+    const targetRange = () => planLevel === "cet6" ? "六级目标 150–200 词" : "四级目标 120–180 词";
+
+    function blankValue(value) {
+      return value && value.trim() ? value.trim() : "[ ]";
+    }
+
+    function renderTemplatePicker() {
+      $("#template-picker").innerHTML = Object.entries(templates).map(([key, template]) => `
+        <button class="template-card ${key === activeTemplate ? "active" : ""}" type="button" data-template="${key}">
+          <b>${template.name}</b>
+          <span>${template.hint}</span>
+        </button>`).join("");
+      $$("#template-picker [data-template]").forEach(button => {
+        button.addEventListener("click", () => {
+          activeTemplate = button.dataset.template;
+          renderTemplatePicker();
+          renderFields();
+        });
+      });
+    }
+
+    function renderFields() {
+      const template = templates[activeTemplate];
+      const draft = writingDraft[activeTemplate] || {};
+      $("#template-fields").innerHTML = template.fields.map(([key, label]) => `
+        <div class="field-group ${key === "example" || key === "support" || key === "trend" ? "wide" : ""}">
+          <label for="field-${key}">${escapeHtml(label)}</label>
+          <input class="field-input" id="field-${key}" name="template-${key}" data-field="${key}" autocomplete="off" value="${escapeHtml(draft[key] || "")}" placeholder="例如：填入题目相关的具体内容…">
+        </div>`).join("");
+      $$("#template-fields input").forEach(input => {
+        input.addEventListener("input", () => {
+          if (!writingDraft[activeTemplate]) writingDraft[activeTemplate] = {};
+          writingDraft[activeTemplate][input.dataset.field] = input.value;
+          writeStore(STORE.writing, writingDraft);
+        });
+      });
+      $("#target-range").textContent = targetRange();
+    }
+
+    $("#reason-chips").innerHTML = reasons.map(([group, items]) => `
+      <span class="sr-only">${group}</span>
+      ${items.map(item => `<button class="chip" type="button" data-reason="${escapeHtml(item)}">${escapeHtml(item)}</button>`).join("")}
+    `).join("");
+    $$("#reason-chips [data-reason]").forEach(button => {
+      button.addEventListener("click", () => {
+        const preferred = ["reason1", "support", "reason2"].map(key => $(`#field-${key}`)).find(Boolean);
+        if (preferred) {
+          preferred.value = button.dataset.reason;
+          preferred.dispatchEvent(new Event("input", { bubbles: true }));
+          preferred.focus();
+          showToast("理由已填入");
+        }
+      });
+    });
+    $("#writing-patterns").innerHTML = writingPatternSentences.map((sentence, index) => `
+      <button class="sentence-row" type="button" data-copy="${escapeHtml(sentence)}">
+        <span>${41 + index}</span>
+        <b>${escapeHtml(sentence)}</b>
+        <span class="copy-mark" aria-hidden="true">＋</span>
+      </button>`).join("");
+    $$("#writing-patterns [data-copy]").forEach(button => {
+      button.addEventListener("click", () => copyText(button.dataset.copy, "已复制写作句型"));
+    });
+
+    function essayWordCount(text) {
+      return (text.match(/[A-Za-z]+(?:['’-][A-Za-z]+)*/g) || []).length;
+    }
+
+    function updateWordCount() {
+      const count = essayWordCount($("#essay-box").value);
+      const min = planLevel === "cet6" ? 150 : 120;
+      const max = planLevel === "cet6" ? 200 : 180;
+      $("#word-count").textContent = `约 ${count} 词 · ${targetRange()}`;
+      $("#word-count").classList.toggle("warn", count > 0 && count < min);
+      $("#target-range").textContent = count > max ? "已超过目标上限，检查是否啰嗦" : targetRange();
+    }
+
+    $("#generate-writing").addEventListener("click", () => {
+      const values = {};
+      templates[activeTemplate].fields.forEach(([key]) => {
+        const field = $(`#field-${key}`);
+        values[key] = blankValue(field ? field.value : "");
+      });
+      $("#essay-box").value = templates[activeTemplate].build(values);
+      $("#writing-output").classList.add("active");
+      updateWordCount();
+      $("#writing-output").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    $("#reset-writing").addEventListener("click", () => {
+      writingDraft[activeTemplate] = {};
+      writeStore(STORE.writing, writingDraft);
+      renderFields();
+      $("#essay-box").value = "";
+      $("#writing-output").classList.remove("active");
+    });
+    $("#copy-essay").addEventListener("click", () => copyText($("#essay-box").value, "作文已复制"));
+    $("#revise-essay").addEventListener("click", () => {
+      $("#essay-box").focus();
+      showToast("填写区仍保留，可以直接再改一版");
+    });
+    $("#essay-box").addEventListener("input", updateWordCount);
+    $$(".phrase-button").forEach(button => button.addEventListener("click", () => copyText(button.textContent, `已复制 ${button.textContent}`)));
+    renderTemplatePicker();
+    renderFields();
+
+    const vocabLines = `
+lecture|讲座|a formal talk given to students|attend a lecture|The lecture on climate drew over 200 students.
+assignment|作业 / 任务|a task given as part of studies|hand in an assignment|The assignment is due on Friday.
+scholarship|奖学金|money given to support studies|win a scholarship|She won a scholarship to study abroad.
+curriculum|课程体系|all subjects taught in a course|design a curriculum|The curriculum includes hands-on projects.
+deadline|截止时间|the latest time to finish something|meet a deadline|We must meet the deadline this week.
+academic|学术的|related to education and studying|academic performance|His academic performance improved steadily.
+semester|学期|one of two periods in a school year|last semester|Last semester I took six courses.
+tutor|导师 / 家教|a teacher for one student or a small group|a private tutor|My tutor checks my writing every week.
+enroll|报名 / 注册|to officially join a course|enroll in a course|Thousands enroll in the online course.
+certificate|证书|an official document proving achievement|earn a certificate|You earn a certificate after passing.
+device|设备|a machine made for a special purpose|a mobile device|Keep the device away from water.
+artificial|人工的|made by humans, not natural|artificial intelligence|Artificial intelligence changes how we learn.
+data|数据|facts and information collected|collect data|The team collects data from users.
+access|使用权 / 访问|the right or ability to use something|have access to|Students have access to the library online.
+update|更新|to make something more modern|update software|Update the app before using it.
+digital|数字的|using computer technology|digital payment|Digital payment is common on campus.
+efficient|高效的|working well without wasting time|an efficient method|This is an efficient method for review.
+innovation|创新|a new idea or method|drive innovation|Small teams can drive innovation.
+platform|平台|a service that connects users|a learning platform|The platform offers free recordings.
+virtual|虚拟的|existing online, not in a real place|a virtual meeting|We held a virtual meeting yesterday.
+career|职业生涯|a job path over a long period|build a career|She plans to build a career in design.
+employee|雇员|a person paid to work for a company|a full-time employee|Every employee joined the training.
+income|收入|money earned from work|a steady income|A steady income reduces stress.
+demand|需求|the need for goods or services|market demand|Market demand for EVs is rising.
+benefit|好处 / 益处|an advantage or good effect|benefit from|Students benefit from early feedback.
+policy|政策|an official plan of action|a new policy|The new policy supports small firms.
+community|社区|people living or working together|the local community|The local community built a library.
+volunteer|志愿者|a person who works without pay|work as a volunteer|He works as a volunteer on weekends.
+pressure|压力|a feeling of stress or force|under pressure|Do not make decisions under pressure.
+opportunity|机会|a chance to do something|a rare opportunity|This is a rare opportunity to practise.
+environment|环境|the natural world around us|protect the environment|Everyone should protect the environment.
+pollution|污染|harmful substances in air or water|air pollution|Air pollution fell after the policy.
+recycle|回收利用|to use materials again|recycle waste|We recycle waste paper at school.
+resource|资源|something useful that can be used|natural resources|Water is a precious natural resource.
+sustainable|可持续的|able to continue without harm|sustainable development|Sustainable development needs long-term plans.
+climate|气候|the usual weather in an area|climate change|Climate change affects farming.
+energy|能源|power used for light, heat or movement|save energy|Turn off lights to save energy.
+reduce|减少|to make something smaller or less|reduce costs|The plan can reduce costs by 10%.
+emission|排放|gas or heat sent into the air|carbon emissions|The city cut carbon emissions.
+preserve|保护 / 保存|to keep something safe from harm|preserve culture|We should preserve local culture.
+exercise|锻炼 / 练习|physical activity to stay healthy|do exercise|Do exercise three times a week.
+diet|饮食|the food a person usually eats|a balanced diet|A balanced diet keeps you energetic.
+mental|心理的|related to the mind|mental health|Sleep matters for mental health.
+stress|压力|worry caused by difficulties|deal with stress|Music helps me deal with stress.
+habit|习惯|something done regularly|a good habit|Reading is a good habit to keep.
+recover|恢复|to become healthy again|recover from|He recovered from flu in a week.
+prevent|预防|to stop something from happening|prevent disease|Exercise can prevent many diseases.
+regular|规律的|happening often at the same times|regular check-ups|Regular check-ups find problems early.
+anxiety|焦虑|a feeling of worry and fear|reduce anxiety|Planning ahead reduces anxiety.
+sufficient|充足的|enough for a purpose|sufficient sleep|Sufficient sleep improves memory.
+tradition|传统|a custom passed down over time|follow a tradition|Families follow the tradition yearly.
+festival|节日|a special celebration time|a traditional festival|The festival attracts many visitors.
+destination|目的地|the place someone is going to|a popular destination|The town is a popular destination.
+journey|旅程|a long trip from one place to another|a long journey|The journey took twelve hours.
+custom|习俗|a usual way of behaving in a place|local customs|Respect local customs when travelling.
+heritage|遗产|traditions and history of a group|cultural heritage|The site is part of our cultural heritage.
+exhibition|展览|a public show of art or objects|visit an exhibition|We visited an art exhibition.
+audience|观众|people watching a show|a live audience|The audience applauded loudly.
+performance|表演|a show of music, dance or acting|a live performance|Her performance won praise.
+adventure|冒险|an exciting and risky experience|go on an adventure|They went on an adventure in the mountains.
+budget|预算|a plan for spending money|on a budget|Students travel on a budget.
+purchase|购买|to buy something|make a purchase|Keep the receipt after a purchase.
+consumer|消费者|a person who buys goods|consumer rights|The law protects consumer rights.
+discount|折扣|a lower price than usual|get a discount|Members get a discount of 10%.
+quality|质量|how good something is|high quality|High quality matters more than price.
+convenient|方便的|easy and useful|a convenient way|Online booking is a convenient way.
+available|可用的|able to be used or bought|be available for|The room is available for study.
+charge|收费|to ask for money for a service|charge for|The hotel does not charge for Wi-Fi.
+average|平均的|usual or typical amount|on average|On average, I read 20 pages a day.
+increase|增加|to become larger in amount|increase by|Sales increased by a fifth.
+achieve|实现|to succeed in doing something|achieve a goal|You can achieve your goal step by step.
+require|需要|to need something|require effort|Success requires daily effort.
+provide|提供|to give something needed|provide support|The school provides support for students.
+consider|考虑|to think carefully about|consider doing|Consider joining the club.
+develop|发展 / 开发|to grow or create gradually|develop a skill|Develop one skill at a time.
+improve|提高|to become better|improve English|Read aloud to improve English.
+influence|影响|the power to affect others|have an influence on|Teachers have an influence on students.
+challenge|挑战|something difficult to do|face a challenge|Face the challenge; do not avoid it.
+knowledge|知识|facts and skills learned|gain knowledge|Reading helps us gain knowledge.
+experience|经历 / 经验|events that affect how you think|work experience|Work experience helps in interviews.
+confident|自信的|sure about your ability|be confident in|Be confident in your preparation.
+independent|独立的|not relying on others|an independent learner|An independent learner reviews daily.
+responsible|负责的|having a duty to do something|be responsible for|You are responsible for your choices.
+communicate|沟通|to share ideas with others|communicate with|Communicate with teachers early.
+argue|论证 / 争论|to give reasons for an opinion|argue that|Some argue that phones distract students.
+doubt|怀疑|a feeling of not being sure|without doubt|Without doubt, practice works.
+attitude|态度|the way you think about something|a positive attitude|A positive attitude helps learning.
+concentrate|专注|to give full attention|concentrate on|Concentrate on one task at a time.
+encourage|鼓励|to give support and hope|encourage sb to do|Teachers encourage us to ask questions.
+respect|尊重|admiration for someone's qualities|show respect for|Show respect for different views.
+research|研究|careful study to find facts|do research|The students do research online first.
+discover|发现|to find something new|discover that|Scientists discovered that sleep aids memory.
+experiment|实验|a test to prove an idea|carry out an experiment|Carry out the experiment in pairs.
+theory|理论|an idea that explains facts|in theory|In theory, the plan should work.
+progress|进步|movement toward a better state|make progress|You will make progress in a month.
+trend|趋势|a general direction of change|a growing trend|Online learning is a growing trend.
+factor|因素|one thing that affects a result|a key factor|Sleep is a key factor in scores.
+method|方法|a way of doing something|an effective method|This is an effective method for review.
+result|结果|something that happens as an effect|as a result|As a result, scores rose quickly.
+essential|必不可少的|completely necessary|be essential for|Sleep is essential for memory.
+`.trim();
+
+    const vocabulary = vocabLines.split("\n").map((line, index) => {
+      const [word, zh, en, collocation, example] = line.split("|");
+      return { index, word, zh, en, collocation, example };
+    });
+    const wrongState = new Set(readStore(STORE.wrong, []));
+    let quizDecisions = readStore(STORE.decisions, {});
+    if (quizDecisions.date !== localDateKey()) quizDecisions = { date: localDateKey(), choices: {} };
+    let dailyQuiz = readStore(STORE.quiz, null);
+    if (!dailyQuiz || dailyQuiz.date !== localDateKey()) {
+      const priority = [...wrongState].map(word => vocabulary.findIndex(item => item.word === word)).filter(index => index >= 0);
+      const rest = vocabulary.map((_, index) => index).filter(index => !priority.includes(index));
+      for (let i = rest.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rest[i], rest[j]] = [rest[j], rest[i]];
+      }
+      dailyQuiz = { date: localDateKey(), indices: [...priority, ...rest].slice(0, 10) };
+      writeStore(STORE.quiz, dailyQuiz);
+    }
+
+    function renderWrongWords() {
+      $("#wrong-words").innerHTML = wrongState.size
+        ? [...wrongState].map(word => `<span class="wrong-word">${escapeHtml(word)}</span>`).join("")
+        : `<p class="empty-note">还没有错词。没记住的词会自动进这里。</p>`;
+    }
+
+    function renderVocab() {
+      $("#vocab-grid").innerHTML = dailyQuiz.indices.map(index => {
+        const word = vocabulary[index];
+        const choice = quizDecisions.choices[word.word];
+        return `<article class="vocab-card ${choice || ""}" data-index="${index}">
+          <button class="vocab-front" type="button" aria-expanded="false">
+            <strong>${escapeHtml(word.word)}</strong>
+            <span>点开看中文、释义、搭配和例句</span>
+          </button>
+          <div class="vocab-back">
+            <dl>
+              <div><dt>中文</dt><dd>${escapeHtml(word.zh)}</dd></div>
+              <div><dt>释义</dt><dd>${escapeHtml(word.en)}</dd></div>
+              <div><dt>搭配</dt><dd>${escapeHtml(word.collocation)}</dd></div>
+              <div><dt>例句</dt><dd>${escapeHtml(word.example)}</dd></div>
+            </dl>
+            <div class="word-actions">
+              <button class="word-good" type="button" data-choice="remembered">记住了</button>
+              <button class="word-bad" type="button" data-choice="missed">没记住</button>
+            </div>
+          </div>
+        </article>`;
+      }).join("");
+      $$(".vocab-front").forEach(button => button.addEventListener("click", () => {
+        const card = button.closest(".vocab-card");
+        const open = card.classList.toggle("open");
+        button.setAttribute("aria-expanded", String(open));
+      }));
+      $$(".word-actions button").forEach(button => button.addEventListener("click", () => {
+        const card = button.closest(".vocab-card");
+        const word = vocabulary[Number(card.dataset.index)];
+        const choice = button.dataset.choice;
+        quizDecisions.choices[word.word] = choice;
+        if (choice === "missed") wrongState.add(word.word);
+        else wrongState.delete(word.word);
+        writeStore(STORE.decisions, quizDecisions);
+        writeStore(STORE.wrong, [...wrongState]);
+        card.classList.remove("remembered", "missed");
+        card.classList.add(choice);
+        renderWrongWords();
+        updateVocabProgress();
+      }));
+      updateVocabProgress();
+      renderWrongWords();
+    }
+
+    function updateVocabProgress() {
+      const count = Object.keys(quizDecisions.choices || {}).filter(word => dailyQuiz.indices.some(index => vocabulary[index].word === word)).length;
+      $("#vocab-progress").textContent = `今日 ${count} / 10`;
+    }
+
+    $("#refresh-words").addEventListener("click", () => {
+      const rest = vocabulary.map((_, index) => index);
+      for (let i = rest.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [rest[i], rest[j]] = [rest[j], rest[i]];
+      }
+      dailyQuiz = { date: localDateKey(), indices: rest.slice(0, 10) };
+      writeStore(STORE.quiz, dailyQuiz);
+      renderVocab();
+    });
+    renderVocab();
+
+    const listeningSignals = [
+      ["What I mean is...", "解释前文，答案常在后面"],
+      ["But actually...", "转折，前面多为干扰"],
+      ["The problem is that...", "引出问题类考点"],
+      ["As a result...", "结果信号"],
+      ["Instead of...", "对比，强调后者"],
+      ["I'd rather... than...", "偏好类对话高频"],
+      ["Why don't we...?", "建议句，看对方回应"],
+      ["It turns out that...", "真相揭晓，常为答案"],
+      ["In other words...", "同义复述，等于划重点"],
+      ["First / Second / Finally", "结构词，跟着数要点"],
+      ["For example / For instance", "例子为目的服务，别拿例子当主旨"],
+      ["On the other hand...", "另一面观点"],
+      ["That is why...", "因果总结"],
+      ["I am afraid...", "委婉拒绝 / 坏消息"],
+      ["You'd better...", "建议 / 提醒"],
+      ["It is said that...", "新闻类开头，引出报道内容"],
+      ["Compared with...", "比较信号，注意比较对象"],
+      ["Not only... but also...", "递进，重点在 also 后"],
+      ["The key point is...", "讲座核心句"],
+      ["In short / In a word", "结论信号，主旨题答案区"]
+    ];
+    const readingPatterns = [
+      ["A is closely related to B.", "关系类细节"],
+      ["A plays a key role in B.", "重要性"],
+      ["A leads to / results in B.", "因果链定位"],
+      ["A is responsible for B.", "原因 / 职责"],
+      ["It is widely believed that...", "大众观点，未必是作者观点"],
+      ["Studies show / Research suggests that...", "研究结论，考点高发"],
+      ["Unlike A, B...", "对比定位"],
+      ["In contrast, ...", "段落转折"],
+      ["A is similar to B in that...", "相似点说明"],
+      ["The reason why... is that...", "原因句完整版"],
+      ["Whether... or..., ...", "让步条件，主句才是结论"],
+      ["Not until... did...", "倒装，强调时间点"],
+      ["What matters most is...", "作者态度 / 主旨"],
+      ["A is likely to...", "推测"],
+      ["A accounts for...%", "数据占比"],
+      ["In addition to A, B...", "追加信息"],
+      ["As for A, ...", "话题切换"],
+      ["It is A that/who...", "强调句，找被强调成分"],
+      ["A, which means...", "非限定定语 = 解释结果"],
+      ["To sum up, ...", "总结段信号"]
+    ];
+    const translationPatterns = [
+      ["...之一", "one of the..."],
+      ["越来越...", "more and more / an increasing number of"],
+      ["随着...的发展", "with the development of..."],
+      ["对...产生影响", "have an effect on..."],
+      ["起着重要作用", "play an important role in"],
+      ["被誉为", "be known as..."],
+      ["位于", "be located in..."],
+      ["由...组成", "be made up of / consist of"],
+      ["不仅...而且", "not only... but also..."],
+      ["据统计", "according to statistics"],
+      ["近年来", "in recent years"],
+      ["与此同时", "at the same time"],
+      ["为...提供", "provide... for / provide sb with"],
+      ["有利于", "be beneficial to"],
+      ["采取措施", "take measures to do"],
+      ["随着...的普及", "with the popularity of"],
+      ["深受...喜爱", "be popular with/among"],
+      ["有助于", "help to do / contribute to"],
+      ["在...方面", "in terms of"],
+      ["总的来说", "in general / overall"]
+    ];
+    const translationExercises = [
+      ["近年来，越来越多的大学生利用课余时间学习新技能。", "In recent years, an increasing number of college students use their spare time to learn new skills."],
+      ["随着科技的发展，在线学习已经成为一种常见方式。", "With the development of technology, online learning has become a common way of learning."],
+      ["这座城市位于中国南方，以温和的气候而闻名。", "This city is located in southern China and is known for its mild climate."],
+      ["阅读不仅能增长知识，而且有助于减轻压力。", "Reading not only increases knowledge but also helps reduce stress."],
+      ["据统计，每天锻炼三十分钟对健康非常有益。", "According to statistics, exercising for 30 minutes a day is very beneficial to health."],
+      ["这所大学由五个学院组成，在校学生超过两万人。", "The university is made up of five colleges and has more than 20,000 students."],
+      ["春节是中国最重要的传统节日之一。", "The Spring Festival is one of the most important traditional festivals in China."],
+      ["与此同时，年轻人也开始关注传统文化的保护。", "At the same time, young people have begun to pay attention to the protection of traditional culture."],
+      ["图书馆为学生提供了安静的学习环境。", "The library provides students with a quiet environment for study."],
+      ["团队合作在大学学习中起着重要作用。", "Teamwork plays an important role in university study."],
+      ["随着手机支付的普及，人们出门很少带现金了。", "With the popularity of mobile payment, people seldom carry cash when going out."],
+      ["这门课程深受学生喜爱，因为它非常实用。", "This course is popular with students because it is very practical."],
+      ["学校采取了多种措施来帮助学生就业。", "The university has taken various measures to help students find jobs."],
+      ["从长远来看，保持良好的习惯有助于取得进步。", "In the long term, keeping good habits helps people make progress."],
+      ["总的来说，合理安排时间是大学成功的关键。", "In general, managing time well is the key to success at university."]
+    ];
+
+    function renderReferenceList(element, data) {
+      element.innerHTML = data.map(([english, chinese]) => `
+        <button class="reference-row" type="button" data-copy="${escapeHtml(english)}">
+          <span><b>${escapeHtml(english)}</b><span>${escapeHtml(chinese)}</span></span>
+          <span class="copy-mark" aria-hidden="true">＋</span>
+        </button>`).join("");
+      $$("[data-copy]", element).forEach(button => button.addEventListener("click", () => copyText(button.dataset.copy, "已复制英文")));
+    }
+
+    renderReferenceList($("#listening-list"), listeningSignals);
+    renderReferenceList($("#reading-list"), readingPatterns);
+    renderReferenceList($("#translation-list"), translationPatterns);
+    $("#translation-exercises").innerHTML = translationExercises.map(([chinese, english], index) => `
+      <details>
+        <summary>${String(index + 1).padStart(2, "0")} · ${escapeHtml(chinese)}</summary>
+        <p>${escapeHtml(english)}</p>
+      </details>`).join("");
+
+    const blindChecks = readStore(STORE.blind, {});
+    $$("[data-blind]").forEach(input => {
+      input.checked = Boolean(blindChecks[input.dataset.blind]);
+      input.addEventListener("change", () => {
+        blindChecks[input.dataset.blind] = input.checked;
+        writeStore(STORE.blind, blindChecks);
+      });
+    });
+
+    $$(".tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        $$(".tab").forEach(item => {
+          item.classList.toggle("active", item === tab);
+          item.setAttribute("aria-selected", String(item === tab));
+        });
+        $$(".tab-panel").forEach(panel => panel.classList.toggle("active", panel.id === tab.getAttribute("aria-controls")));
+      });
+    });
+
+    const phases = [
+      { name: "写作", seconds: 30 * 60 },
+      { name: "听力", seconds: 25 * 60 },
+      { name: "阅读", seconds: 40 * 60 },
+      { name: "翻译", seconds: 30 * 60 }
+    ];
+    let timerPhase = 0;
+    let remaining = phases[0].seconds;
+    let timerRunning = false;
+    let timerId = null;
+
+    function renderTimer() {
+      const phase = phases[timerPhase];
+      $("#timer-stage").textContent = `第 ${timerPhase + 1} 阶段 · ${phase.name}`;
+      $("#timer-display").textContent = `${String(Math.floor(remaining / 60)).padStart(2, "0")}:${String(remaining % 60).padStart(2, "0")}`;
+      $("#timer-stage-line").innerHTML = phases.map((_, index) => `<span class="${index < timerPhase ? "done" : index === timerPhase ? "current" : ""}"></span>`).join("");
+      $("#timer-toggle").textContent = timerRunning ? "暂停" : remaining < phase.seconds ? "继续" : "开始";
+    }
+
+    function stopTimer() {
+      timerRunning = false;
+      clearInterval(timerId);
+      timerId = null;
+      $("#timer-toggle").textContent = "继续";
+    }
+
+    function tick() {
+      if (remaining > 0) {
+        remaining -= 1;
+        renderTimer();
+        return;
+      }
+      if (timerPhase < phases.length - 1) {
+        timerPhase += 1;
+        remaining = phases[timerPhase].seconds;
+        showToast(`进入${phases[timerPhase].name}阶段`);
+        renderTimer();
+        return;
+      }
+      stopTimer();
+      $("#timer-help").textContent = "做完了，去填自查表。";
+      $("#timer-toggle").textContent = "已完成";
+      $("#timer-toggle").disabled = true;
+      showToast("模考计时完成");
+    }
+
+    $("#timer-toggle").addEventListener("click", () => {
+      if (timerRunning) {
+        stopTimer();
+        return;
+      }
+      timerRunning = true;
+      $("#timer-toggle").textContent = "暂停";
+      $("#timer-help").textContent = "计时中，到点会自动进入下一阶段。";
+      timerId = setInterval(tick, 1000);
+    });
+    $("#timer-reset").addEventListener("click", () => {
+      clearInterval(timerId);
+      timerRunning = false;
+      timerId = null;
+      timerPhase = 0;
+      remaining = phases[0].seconds;
+      $("#timer-toggle").disabled = false;
+      $("#timer-help").textContent = "开始后倒计时，到点自动进入下一阶段。";
+      renderTimer();
+    });
+    $("#mock-switch").addEventListener("click", event => {
+      const button = event.target.closest("[data-mock]");
+      if (!button) return;
+      $$("#mock-switch .segment").forEach(item => item.classList.toggle("active", item === button));
+      showToast(`已切换到模考 ${button.dataset.mock}`);
+    });
+    renderTimer();
+
+    const mockDraft = readStore(STORE.mock, {});
+    $$("[data-field]").forEach(input => {
+      const row = input.closest(".mock-form-row");
+      const subjectNode = row ? row.querySelector("strong") : null;
+      const subject = subjectNode ? subjectNode.textContent : "";
+      if (!subject) return;
+      if (!mockDraft[subject]) mockDraft[subject] = {};
+      const savedValue = mockDraft[subject][input.dataset.field] || "";
+      input.value = savedValue;
+      if (input.tagName === "SELECT" && input.selectedIndex < 0) {
+        input.selectedIndex = 0;
+      }
+      input.addEventListener("input", () => {
+        mockDraft[subject][input.dataset.field] = input.value;
+        writeStore(STORE.mock, mockDraft);
+      });
+      input.addEventListener("change", () => {
+        mockDraft[subject][input.dataset.field] = input.value;
+        writeStore(STORE.mock, mockDraft);
+      });
+    });
+    $("#mock-form").addEventListener("submit", event => {
+      event.preventDefault();
+      const rows = $$(".mock-form-row").filter(row => row.querySelector("strong"));
+      const moduleScores = { 听力: 248.5, 阅读: 248.5, 写作: 106.5, 翻译: 106.5 };
+      let estimatedTotal = 0;
+      let complete = true;
+      const summary = rows.map(row => {
+        const subject = row.querySelector("strong").textContent;
+        const time = row.querySelector('[data-field="time"]').value || "未填";
+        const errors = row.querySelector('[data-field="errors"]').value || "未填";
+        const correctRaw = row.querySelector('[data-field="correct"]').value;
+        const totalRaw = row.querySelector('[data-field="total"]').value;
+        const correct = Number(correctRaw);
+        const total = Number(totalRaw);
+        const cause = row.querySelector('[data-field="cause"]').value;
+        const fix = row.querySelector('[data-field="fix"]').value || "待定";
+        const ratio = correctRaw !== "" && totalRaw !== "" && total > 0 && correct >= 0 && correct <= total ? correct / total : null;
+        if (ratio === null) complete = false;
+        else estimatedTotal += moduleScores[subject] * ratio;
+        return `${subject}：${time} 分钟，错 ${errors}，答对 ${correctRaw || "待填"}/${totalRaw || "待填"}；主要是${cause}，下次${fix}。`;
+      }).join("<br>");
+      const scoreLine = complete
+        ? `粗略估算：${estimatedTotal.toFixed(1)} / 710 分。粗略估算，仅供参考，不是真实报道分。`
+        : "估分信息还没填完整。请为四科都填写有效的答对数与总题数；写作、翻译可填入估算得分与满分。";
+      $("#mock-summary").innerHTML = `<strong>本轮模考小结</strong><br>${summary}<br><br>${scoreLine}`;
+      $("#mock-summary").classList.add("active");
+    });
+
+    if ("IntersectionObserver" in window) {
+      const sectionObserver = new IntersectionObserver(entries => {
+        const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        $$("#section-nav a").forEach(link => link.setAttribute("aria-current", String(link.hash === `#${visible.target.id}`)));
+      }, { rootMargin: "-20% 0px -65% 0px", threshold: [0, 0.1, 0.5] });
+      $$("main section[id]").forEach(section => sectionObserver.observe(section));
+    }
+    document.documentElement.setAttribute("data-app-ready", "true");
+  </script>
+</body>
+</html>
